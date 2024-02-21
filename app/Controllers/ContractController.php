@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Models\ContractModel;
-use App\Models\BidModel;
 
 class ContractController extends BaseController
 {
