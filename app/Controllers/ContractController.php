@@ -31,7 +31,7 @@ class ContractController extends BaseController
         $id = $this->request->getGet('id') ?? 1;
         $contract=$this->contractModel->getContractById($id);
         $data = [
-            'contracts' => $contract,
+            'contract' => $contract,
         ];
         return view('item_view',$data);
     }

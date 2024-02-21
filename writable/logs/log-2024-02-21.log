@@ -1,0 +1,12 @@
+CRITICAL - 2024-02-21 09:52:23 --> ErrorException: Undefined variable $contract
+in APPPATH/Views/item_view.php on line 2.
+ 1 APPPATH/Views/item_view.php(2): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $contract', '/Users/rohitshakya/Desktop/My Projects/auction/app/Views/item_view.php', 2)
+ 2 SYSTEMPATH/View/View.php(228): include('/Users/rohitshakya/Desktop/My Projects/auction/app/Views/item_view.php')
+ 3 SYSTEMPATH/View/View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1178): CodeIgniter\View\View->render('item_view', [], true)
+ 5 APPPATH/Controllers/ContractController.php(36): view('item_view', [...])
+ 6 SYSTEMPATH/CodeIgniter.php(941): App\Controllers\ContractController->showSingleContract()
+ 7 SYSTEMPATH/CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ContractController))
+ 8 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Users/rohitshakya/Desktop/My Projects/auction/public/index.php')

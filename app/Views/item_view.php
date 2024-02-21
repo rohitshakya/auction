@@ -1,5 +1,4 @@
 <?php
-
 ?>
 
 <!DOCTYPE html>
@@ -41,7 +40,6 @@
                     <form class="d-flex">
                         <button class="btn btn-outline-dark" type="submit">
                         <i class="bi bi-box-arrow-in-right me-1"></i> <!-- Login symbol -->
-
                             Account
                             <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                         </button>
@@ -59,18 +57,23 @@
             </div>
         </header>
         <!-- Section-->
+
+        <?php 
+        if(!empty($contract))
+        {?>
+
         <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
                     <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..."></div>
                     <div class="col-md-6">
                         <div class="small mb-1">SKU: BST-498</div>
-                        <h1 class="display-5 fw-bolder">Shop item template</h1>
+                        <h1 class="display-5 fw-bolder"><?= $contract['title']??''?></h1>
                         <div class="fs-5 mb-5">
-                            <span class="text-decoration-line-through">$45.00</span>
-                            <span>$40.00</span>
+                            <!--<span class="text-decoration-line-through"><?= $contract['budget']??''?></span>-->
+                            <span><?= $contract['budget']??''?></span>
                         </div>
-                        <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</p>
+                        <p class="lead"><?= $contract['description']??''?></p>
                         <div id="bidTimer" class="text-center mb-4"></div>
                         <!-- Bid Input Field -->
                         <div class="mb-3">
@@ -103,6 +106,10 @@
                 </div>
             </div>
         </section>
+
+            <?php }
+        ?>
+        
 
         <!-- Footer-->
         <footer class="py-5 bg-dark">

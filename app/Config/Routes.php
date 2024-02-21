@@ -5,10 +5,9 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-$routes->get('/', 'Home::index');
 $routes->get('/bid', 'Home::bid');
 
-$routes->get('contracts', 'ContractController::getContracts');
+$routes->get('/', 'ContractController::getContracts');
 $routes->get('view_contract', 'ContractController::showSingleContract');
 
 $routes->post('contracts', 'ContractController::create');
