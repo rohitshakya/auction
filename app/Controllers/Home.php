@@ -4,21 +4,21 @@ namespace App\Controllers;
 
 class Home extends BaseController
 {
-    public function index(): string
-    {
-        return view('welcome_message');
-    }
     public function bid(): string
     {
-        return view('bid');
+        return view('header').view('bid');
     }
     public function login(): string
     {
-        return view('login');
+        return view('header').view('login');
     }
     public function postContract(): string
     {
-        return view('createContractView');
+        return view('header').view('createContractView');
+    }
+    public function about(): string
+    {
+        return view('header').view('about');
     }
 
     

@@ -22,7 +22,7 @@ class ContractController extends BaseController
             'currentPage'=>$page,
             'totalPages'=>10 //logic to be write
         ];
-        return view('bid',$data);
+        return view('header').view('bid',$data);
     }
 
     public function showSingleContract()
@@ -32,7 +32,7 @@ class ContractController extends BaseController
         $data = [
             'contract' => $contract,
         ];
-        return view('item_view',$data);
+        return view('header').view('itemView',$data);
     }
 
     public function create()

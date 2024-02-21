@@ -16,12 +16,12 @@ class BidController extends BaseController
     {
         $contractId = $this->request->getGet('contractId') ?? 1;
         $bidModel = new BidModel();
-        $bids = $bidModel->where('contract_id', $contractId)->findAll();
+        $bids = $bidModel->where('contract_id', $contractId)->orderBy('id', 'DESC')->findAll();
         return $this->response->setJSON($bids);
     }
     public function createBid()
     {
-        $postData =  (array) $this->request->getJSON();
+        $postData =  $this->request->getPost();
         $validationRules = [
             'user_id' => 'required|integer',
             'contract_id' => 'required|integer',

@@ -321,3 +321,27 @@ in APPPATH/Controllers/BaseController.php on line 62.
  3 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
  4 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
  5 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Users/rohitshakya/Desktop/My Projects/auction/public/index.php')
+CRITICAL - 2024-02-21 17:52:56 --> ErrorException: Undefined variable $currentPage
+in APPPATH/Views/bid.php on line 113.
+ 1 APPPATH/Views/bid.php(113): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $currentPage', '/Users/rohitshakya/Desktop/My Projects/auction/app/Views/bid.php', 113)
+ 2 SYSTEMPATH/View/View.php(228): include('/Users/rohitshakya/Desktop/My Projects/auction/app/Views/bid.php')
+ 3 SYSTEMPATH/View/View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1178): CodeIgniter\View\View->render('bid', [], true)
+ 5 APPPATH/Controllers/Home.php(13): view('bid')
+ 6 SYSTEMPATH/CodeIgniter.php(941): App\Controllers\Home->bid()
+ 7 SYSTEMPATH/CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 8 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Users/rohitshakya/Desktop/My Projects/auction/public/index.php')
+CRITICAL - 2024-02-21 18:36:10 --> ErrorException: Undefined variable $contract
+in APPPATH/Views/about.php on line 114.
+ 1 APPPATH/Views/about.php(114): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $contract', '/Users/rohitshakya/Desktop/My Projects/auction/app/Views/about.php', 114)
+ 2 SYSTEMPATH/View/View.php(228): include('/Users/rohitshakya/Desktop/My Projects/auction/app/Views/about.php')
+ 3 SYSTEMPATH/View/View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1178): CodeIgniter\View\View->render('about', [], true)
+ 5 APPPATH/Controllers/Home.php(21): view('about')
+ 6 SYSTEMPATH/CodeIgniter.php(941): App\Controllers\Home->about()
+ 7 SYSTEMPATH/CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 8 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Users/rohitshakya/Desktop/My Projects/auction/public/index.php')
