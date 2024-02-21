@@ -1,0 +1,5 @@
+# Ignore vendor directories
+/vendor/
+/writable/
+# Ignore writable log files
+/log/*.log
