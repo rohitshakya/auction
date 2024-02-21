@@ -12,4 +12,14 @@ class Home extends BaseController
     {
         return view('bid');
     }
+    public function login(): string
+    {
+        return view('login');
+    }
+    public function postContract(): string
+    {
+        return view('createContractView');
+    }
+
+    
 }

@@ -233,3 +233,43 @@ in SYSTEMPATH/Database/MySQLi/Connection.php on line 306.
 11 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
 12 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
 13 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Users/rohitshakya/Desktop/My Projects/auction/public/index.php')
+CRITICAL - 2024-02-21 12:14:36 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "creatContractView.php"
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(216): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('creatContractView.php')
+ 2 SYSTEMPATH/Common.php(1178): CodeIgniter\View\View->render('creatContractView', [], true)
+ 3 APPPATH/Controllers/Home.php(21): view('creatContractView')
+ 4 SYSTEMPATH/CodeIgniter.php(941): App\Controllers\Home->postContract()
+ 5 SYSTEMPATH/CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 6 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Users/rohitshakya/Desktop/My Projects/auction/public/index.php')
+CRITICAL - 2024-02-21 12:15:20 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "creatContractView.php"
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(216): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('creatContractView.php')
+ 2 SYSTEMPATH/Common.php(1178): CodeIgniter\View\View->render('creatContractView', [], true)
+ 3 APPPATH/Controllers/Home.php(21): view('creatContractView')
+ 4 SYSTEMPATH/CodeIgniter.php(941): App\Controllers\Home->postContract()
+ 5 SYSTEMPATH/CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 6 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Users/rohitshakya/Desktop/My Projects/auction/public/index.php')
+CRITICAL - 2024-02-21 12:15:24 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "creatContractView.php"
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(216): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('creatContractView.php')
+ 2 SYSTEMPATH/Common.php(1178): CodeIgniter\View\View->render('creatContractView', [], true)
+ 3 APPPATH/Controllers/Home.php(21): view('creatContractView')
+ 4 SYSTEMPATH/CodeIgniter.php(941): App\Controllers\Home->postContract()
+ 5 SYSTEMPATH/CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 6 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Users/rohitshakya/Desktop/My Projects/auction/public/index.php')
+CRITICAL - 2024-02-21 12:16:02 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "creatContractView.php"
+in SYSTEMPATH/Exceptions/FrameworkException.php on line 39.
+ 1 SYSTEMPATH/View/View.php(216): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('creatContractView.php')
+ 2 SYSTEMPATH/Common.php(1178): CodeIgniter\View\View->render('creatContractView', [], true)
+ 3 APPPATH/Controllers/Home.php(22): view('creatContractView')
+ 4 SYSTEMPATH/CodeIgniter.php(941): App\Controllers\Home->postContract()
+ 5 SYSTEMPATH/CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 6 SYSTEMPATH/CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH/index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Commands/Server/rewrite.php(47): require_once('/Users/rohitshakya/Desktop/My Projects/auction/public/index.php')
