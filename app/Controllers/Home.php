@@ -14,6 +14,7 @@ class Home extends BaseController
     }
     public function postProduct(): string
     {
+        
         return view('header').view('createProductView');
     }
     public function about(): string

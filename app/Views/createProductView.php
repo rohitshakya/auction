@@ -26,7 +26,21 @@ Product Details
     <label for="budget">Budget</label>
     <input type="text" class="form-control" id="budget" placeholder="Enter budget">
 </div>
-<button type="submit" class="btn btn-primary" style="margin-top:10px">Post Product</button>
+<div class="form-group">
+<label for="categoryId">Category</label>
+<input type="text" class="form-control" id="categoryId" placeholder="Enter category ID">
+</div>
+<div class="form-group row">
+    <div class="col">
+        <label for="startTime">Start Time</label>
+        <input type="datetime-local" class="form-control" id="startTime">
+    </div>
+    <div class="col">
+        <label for="endTime">End Time</label>
+        <input type="datetime-local" class="form-control" id="endTime">
+    </div>
+</div>
+<button id="createProduct" class="btn btn-primary" style="margin-top:10px">Post Product</button>
 </form>
 </div>
 </div>
@@ -39,3 +53,32 @@ Product Details
 <script src="../assets/js/scripts.js"></script>
 </body>
 </html>
+<script>
+$(document).ready(function(){
+   
+    $("#createProduct").click(function(){
+        let productTitle = $("#productTitle").val();
+        let productDescription = $("#productDescription").val();
+        let budget = $("#budget").val();
+        let startTime = $("#startTime").val();
+        let endTime = $("#endTime").val();
+        $.ajax({
+            url: "/createProduct",
+            type: "POST", 
+            dataType: "json", 
+            data: { "name": productTitle,"description": productDescription,"starting_price": budget,"start_datetime":startTime,"end_datetime":endTime},
+            success: function(response) {
+                console.log(response);
+                alert("Posted");
+               
+            },
+            error: function(xhr, status, error) {
+                console.error(status);
+                console.error(error);
+               
+            }
+        });
+        return false;
+    });
+});
+</script>

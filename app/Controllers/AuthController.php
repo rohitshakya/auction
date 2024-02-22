@@ -20,23 +20,17 @@ class AuthController extends BaseController
        
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password')??'';
-        
         $user = $this->userModel->where('email', $email)->first();
         if ($user) {
             if ($password===$user['password']) {
                 $token = bin2hex(random_bytes(32));
-                echo $token;
-               echo "ddd";die;
                 $this->userModel->update($user['id'], ['token' => $token]);
-                echo "{{";die;
                 session()->set('token', $token);
                 $data['token'] = $token;
-                echo "{}";die;
                 return $this->respond($data);
             }
         }
         $data['error']="Invalid email or password";
-        echo "{}";die;
         return $this->respond($data);
     }
 

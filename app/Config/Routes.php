@@ -5,13 +5,14 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-$routes->get('/', 'ProductController::getProducts');
 $routes->get('/bid', 'Home::bid');
 $routes->get('/login', 'Home::login');
 $routes->get('/about', 'Home::about');
-$routes->get('/getProduct', 'ProductController::showSingleProduct');
+$routes->get('/addProduct', 'Home::postProduct');
+
+$routes->get('/', 'ProductController::getProducts');
+$routes->get('/getProduct', 'ProductController::getProduct');
 $routes->get('/getBidsByProduct', 'BidController::getBidsByProduct');
-$routes->get('/postProduct', 'Home::postProduct');
-$routes->post('/createBid', 'BidController::createBid');
-$routes->post('/products', 'ProductController::create');
+$routes->post('/createProduct', 'ProductController::createProduct');
+
 $routes->post('/auth', 'AuthController::login');

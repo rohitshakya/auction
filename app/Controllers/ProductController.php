@@ -3,9 +3,10 @@
 namespace App\Controllers;
 
 use App\Models\ProductModel;
-
+use CodeIgniter\API\ResponseTrait;
 class ProductController extends BaseController
 {
+    use ResponseTrait;
     protected $ProductModel;
 
     public function __construct()
@@ -15,14 +16,16 @@ class ProductController extends BaseController
 
     public function getProducts()
     {
+        
         $page = $this->request->getGet('page') ?? 1;
         $products=$this->ProductModel->getAllProducts($page);
+        $totalProducts=$this->ProductModel->countAllResults();
         $data = [
             'products' => $products,
             'currentPage'=>$page,
-            'totalPages'=>10 //logic to be write
+            'totalPages'=>$totalProducts/10
         ];
-        return view('header').view('bid',$data);
+        return view('header').view('home',$data);
     }
 
     public function getProduct()
@@ -34,10 +37,23 @@ class ProductController extends BaseController
         ];
         return view('header').view('itemView',$data);
     }
-
-    public function create()
+    public function createProduct()
     {
-        // Create a new product
+        $postData = $this->request->getPost();
+        
+        $data = [
+            'name' => $postData['name'] ?? '',
+            'description' => $postData['description'] ?? null,
+            'category_id' => $postData['category_id'] ?? null,
+            'user_id' => $postData['user_id'] ?? 1,
+            'starting_price' => $postData['starting_price'] ?? 0,
+            'start_datetime' => $postData['start_datetime'] ?? '',
+            'end_datetime' => $postData['end_datetime'] ?? '',
+            'media' => $postData['media'] ?? null, 
+            'status' => $postData['status'] ?? 'active'
+        ];
+        $this->ProductModel->insert($data);
+        return $this->respond($data);
     }
 }
 

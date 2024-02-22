@@ -1,5 +1,5 @@
 <?php
-
+//print_r($products);die;
 ?>
         <!-- Header-->
         <header class="bg-dark py-5">
@@ -31,7 +31,7 @@
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder"><?=$item['title']?></h5>
+                                    <h5 class="fw-bolder"><?=$item['name']??''?></h5>
                                     <!-- Product reviews-->
                                     <div class="d-flex justify-content-center small text-warning mb-2">
                                         <div class="bi-star-fill"></div>
@@ -42,7 +42,7 @@
                                     </div>
                                     <!-- Product price-->
                                     <!--<span class="text-muted text-decoration-line-through">$20.00</span>-->
-                                    <?= $item['budget']?>
+                                    <?= $item['starting_price']?>
                                 </div>
                             </div>
                             <!-- Product actions-->

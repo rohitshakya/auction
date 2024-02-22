@@ -55,7 +55,7 @@ if(!empty($product))
     </div>
 </section>
 
-    <?php }
+    <?php } 
 ?>
 
 
