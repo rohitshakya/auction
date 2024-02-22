@@ -16,9 +16,9 @@ class ProductController extends BaseController
     public function getProducts()
     {
         $page = $this->request->getGet('page') ?? 1;
-        $contracts=$this->ProductModel->getAllContracts($page);
+        $products=$this->ProductModel->getAllProducts($page);
         $data = [
-            'contracts' => $contracts,
+            'products' => $products,
             'currentPage'=>$page,
             'totalPages'=>10 //logic to be write
         ];
@@ -28,16 +28,16 @@ class ProductController extends BaseController
     public function getProduct()
     {
         $id = $this->request->getGet('id') ?? 1;
-        $contract=$this->ProductModel->getProductById($id);
+        $product=$this->ProductModel->getProductById($id);
         $data = [
-            'contract' => $contract,
+            'product' => $product,
         ];
         return view('header').view('itemView',$data);
     }
 
     public function create()
     {
-        // Create a new contract
+        // Create a new product
     }
 }
 

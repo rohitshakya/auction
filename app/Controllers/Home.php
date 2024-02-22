@@ -12,7 +12,7 @@ class Home extends BaseController
     {
         return view('header').view('login');
     }
-    public function postContract(): string
+    public function postProduct(): string
     {
         return view('header').view('createProductView');
     }

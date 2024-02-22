@@ -16,8 +16,8 @@ class ProductModel extends Model
         $offset = ($page - 1) * $this->perPage;
         return $this->paginate($this->perPage, '', $offset);
     }
-    public function getProductById($contractId)
+    public function getProductById($productId)
     {
-        return $this->find($contractId);
+        return $this->find($productId);
     }
 }
