@@ -3,9 +3,11 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use CodeIgniter\API\ResponseTrait;
 
 class AuthController extends BaseController
 {
+    use ResponseTrait;
     protected $userModel;
 
     public function __construct()
@@ -15,30 +17,27 @@ class AuthController extends BaseController
 
     public function login()
     {
-        // Handle login form submission
+       
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password')??'';
-
-        // Validate credentials (you should hash and verify the password)
+        
         $user = $this->userModel->where('email', $email)->first();
-
-        if ($user && password_verify($password, $user['password'])) {
-            // Generate token
-            $token = bin2hex(random_bytes(32));
-
-            // Save token to the database
-            $this->userModel->update($user['id'], ['token' => $token]);
-
-            // Save token in session
-            session()->set('token', $token);
-
-            // Redirect to dashboard or wherever you want
-            return redirect()->to('/dashboard');
+        if ($user) {
+            if ($password===$user['password']) {
+                $token = bin2hex(random_bytes(32));
+                echo $token;
+               echo "ddd";die;
+                $this->userModel->update($user['id'], ['token' => $token]);
+                echo "{{";die;
+                session()->set('token', $token);
+                $data['token'] = $token;
+                echo "{}";die;
+                return $this->respond($data);
+            }
         }
-
-        // Handle invalid credentials
-        // Redirect to login page with error message
-        return redirect()->to('/login')->with('error', 'Invalid email or password');
+        $data['error']="Invalid email or password";
+        echo "{}";die;
+        return $this->respond($data);
     }
 
     public function signup()

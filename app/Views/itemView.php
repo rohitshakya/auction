@@ -109,13 +109,11 @@ $(document).ready(function(){
             url: "/createBid",
             type: "POST", 
             dataType: "json", 
-            data: { "user_id": 2,"contract_id": contractId,"amount": bidAmount},
+            data: { "user_id": 2,"product_id": contractId,"amount": bidAmount},
             success: function(response) {
                 getBids(contractId);
             },
             error: function(xhr, status, error) {
-               
-                console.error("AJAX request failed");
                 console.error(status);
                 console.error(error);
             }
@@ -127,7 +125,7 @@ function getBids()
 {
     let contractId = "<?=$contract['id'];?>";
     $.ajax({
-        url: "/getBidsByContract",
+        url: "/getBidsByProduct",
         type: "GET", 
         dataType: "json", 
         data: { "id": contractId},
@@ -137,7 +135,7 @@ function getBids()
                 $('#bidTable tbody').append(
                     '<tr>' +
                     '<td>' + item.user_id + '</td>' +
-                    '<td>' + item.contract_id + '</td>' +
+                    '<td>' + item.product_id + '</td>' +
                     '<td>' + item.amount + '</td>' +
                     '<td>' + item.created_at + '</td>' +
                     '</tr>'

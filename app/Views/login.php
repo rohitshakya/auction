@@ -28,7 +28,7 @@ body {
                     <input type="password" id="password" class="form-control" placeholder="Enter your password">
                 </div>
                 <div class="form-group">
-                    <button type="submit" style="margin-top: 10px" class="btn btn-primary btn-block">Login</button>
+                    <button id="loginButton" style="margin-top: 10px" class="btn btn-primary btn-block">Login</button>
                 </div>
             </form>
         </div>
@@ -42,3 +42,29 @@ body {
 <script src="../assets/js/scripts.js"></script>
 </body>
 </html>
+
+<script>
+$(document).ready(function(){
+   
+    $("#loginButton").click(function(){
+       
+        let email = $("#username").val();
+        let password = $("#password").val();;
+        $.ajax({
+            url: "/auth",
+            type: "POST", 
+            dataType: "json", 
+            data: { "email": email,"password": password},
+            success: function(response) {
+              console.log(response);
+              return false;
+            },
+            error: function(xhr, status, error) {
+                console.error(status);
+                console.error(error);
+            }
+        });
+        return false;
+    });
+});
+</script>

@@ -12,11 +12,11 @@ class BidController extends BaseController
     {
         $this->bidModel = new BidModel();
     }
-    public function getBidsByContract()
+    public function getBidsByProduct()
     {
-        $contractId = $this->request->getGet('contractId') ?? 1;
+        $contractId = $this->request->getGet('productId') ?? 1;
         $bidModel = new BidModel();
-        $bids = $bidModel->where('contract_id', $contractId)->orderBy('id', 'DESC')->findAll();
+        $bids = $bidModel->where('product_id', $contractId)->orderBy('id', 'DESC')->findAll();
         return $this->response->setJSON($bids);
     }
     public function createBid()
@@ -33,7 +33,7 @@ class BidController extends BaseController
         }
         $bidData = [
             'user_id' => $postData['user_id'],
-            'contract_id' => $postData['contract_id'],
+            'contract_id' => $postData['product_id'],
             'amount' => $postData['amount']
         ];
         $this->bidModel->insert($bidData);

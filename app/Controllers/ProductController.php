@@ -2,21 +2,21 @@
 
 namespace App\Controllers;
 
-use App\Models\ContractModel;
+use App\Models\ProductModel;
 
-class ContractController extends BaseController
+class ProductController extends BaseController
 {
-    protected $contractModel;
+    protected $ProductModel;
 
     public function __construct()
     {
-        $this->contractModel = new ContractModel();
+        $this->ProductModel = new ProductModel();
     }
 
-    public function getContracts()
+    public function getProducts()
     {
         $page = $this->request->getGet('page') ?? 1;
-        $contracts=$this->contractModel->getAllContracts($page);
+        $contracts=$this->ProductModel->getAllContracts($page);
         $data = [
             'contracts' => $contracts,
             'currentPage'=>$page,
@@ -25,10 +25,10 @@ class ContractController extends BaseController
         return view('header').view('bid',$data);
     }
 
-    public function showSingleContract()
+    public function getProduct()
     {
         $id = $this->request->getGet('id') ?? 1;
-        $contract=$this->contractModel->getContractById($id);
+        $contract=$this->ProductModel->getProductById($id);
         $data = [
             'contract' => $contract,
         ];

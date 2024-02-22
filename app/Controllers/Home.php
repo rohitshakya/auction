@@ -14,7 +14,7 @@ class Home extends BaseController
     }
     public function postContract(): string
     {
-        return view('header').view('createContractView');
+        return view('header').view('createProductView');
     }
     public function about(): string
     {

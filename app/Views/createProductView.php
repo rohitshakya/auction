@@ -15,12 +15,12 @@ Contract Details
 <div class="card-body">
 <form>
 <div class="form-group">
-    <label for="contractTitle">Contract Title</label>
-    <input type="text" class="form-control" id="contractTitle" placeholder="Enter contract title">
+    <label for="contractTitle">Product Title</label>
+    <input type="text" class="form-control" id="productTitle" placeholder="Enter contract title">
 </div>
 <div class="form-group">
     <label for="contractDescription">Contract Description</label>
-    <textarea class="form-control" id="contractDescription" rows="3" placeholder="Enter contract description"></textarea>
+    <textarea class="form-control" id="productDescription" rows="3" placeholder="Enter contract description"></textarea>
 </div>
 <div class="form-group">
     <label for="budget">Budget</label>
