@@ -8,11 +8,14 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/bid', 'Home::bid');
 $routes->get('/login', 'Home::login');
 $routes->get('/about', 'Home::about');
+$routes->get('/viewPdf', 'Home::viewPdf');
+
 $routes->get('/addProduct', 'Home::postProduct');
 
 $routes->get('/', 'ProductController::getProducts');
 $routes->get('/getProduct', 'ProductController::getProduct');
 $routes->get('/getBidsByProduct', 'BidController::getBidsByProduct');
 $routes->post('/createProduct', 'ProductController::createProduct');
+
 
 $routes->post('/auth', 'AuthController::login');

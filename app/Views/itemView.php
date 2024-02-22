@@ -17,7 +17,8 @@ if(!empty($product))
 <section class="py-5">
     <div class="container px-4 px-lg-5 my-5">
         <div class="row gx-4 gx-lg-5 align-items-center">
-            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..."></div>
+            <div class="col-md-6">
+        <iframe id="pdfViewer" style="width: 100%; height: 500px;" frameborder="0"></iframe></div>
             <div class="col-md-6">
                 <!-- <div class="small mb-1">SKU: BST-498</div>-->
                 <h1 class="display-5 fw-bolder"><?= $product['title']??''?></h1>
@@ -152,4 +153,9 @@ function getBids()
 
 }
 getBids();
+</script>
+
+<script>
+var pdfData="<?php echo 'data:application/pdf;base64,'.$product['media'];?>";
+$("#pdfViewer").attr("src", pdfData);
 </script>

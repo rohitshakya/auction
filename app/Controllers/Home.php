@@ -2,8 +2,12 @@
 
 namespace App\Controllers;
 
+use App\Models\ProductModel;
+use App\Models\CategoryModel;
+use CodeIgniter\API\ResponseTrait;
 class Home extends BaseController
 {
+    use ResponseTrait;
     public function bid(): string
     {
         return view('header').view('bid');
@@ -14,8 +18,9 @@ class Home extends BaseController
     }
     public function postProduct(): string
     {
-        
-        return view('header').view('createProductView');
+        $categoryModel = new CategoryModel();
+        $data['categories'] = $categoryModel->findAll();
+        return view('header').view('createProductView',$data);
     }
     public function about(): string
     {

@@ -40,20 +40,23 @@ class ProductController extends BaseController
     public function createProduct()
     {
         $postData = $this->request->getPost();
+        $pdfFile = $this->request->getFile('pdf_file');
+        $fileData = file_get_contents($pdfFile->getTempName());
         
+        $base64Data = base64_encode($fileData);
         $data = [
             'name' => $postData['name'] ?? '',
             'description' => $postData['description'] ?? null,
-            'category_id' => $postData['category_id'] ?? null,
+            'category_id' => $postData['categoryId'] ?? null,
             'user_id' => $postData['user_id'] ?? 1,
             'starting_price' => $postData['starting_price'] ?? 0,
             'start_datetime' => $postData['start_datetime'] ?? '',
             'end_datetime' => $postData['end_datetime'] ?? '',
-            'media' => $postData['media'] ?? null, 
+            'media' => $base64Data ?? null, 
             'status' => $postData['status'] ?? 'active'
         ];
         $this->ProductModel->insert($data);
-        return $this->respond($data);
+        return $this->respond(["Success"]);
     }
 }
 
