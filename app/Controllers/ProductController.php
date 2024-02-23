@@ -59,6 +59,7 @@ class ProductController extends BaseController
             'status' => $postData['status'] ?? 'active'
         ];
         $this->ProductModel->insert($data);
+        //$this->sendEmailNotification();
         return $this->respond(["Success"]);
     }
 }
