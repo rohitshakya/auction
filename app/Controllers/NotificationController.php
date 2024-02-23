@@ -5,11 +5,14 @@ namespace App\Controllers;
 use App\Models\NotificationModel;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+use Config\Email; // Import Email configuration
+use Config\Services;
 
 class NotificationController extends BaseController
 {
     public function sendEmailNotification()
     {
+        $config = config('Email');
         $notificationModel = new NotificationModel();
 
         // Fetch notifications to be sent via email
@@ -26,15 +29,15 @@ class NotificationController extends BaseController
         try {
             // Server settings
             $mailer->isSMTP();
-            $mailer->Host = 'smtp.example.com';
+            $mailer->Host = $config->SMTPHost; // Use values from Email config
             $mailer->SMTPAuth = true;
-            $mailer->Username = 'your@example.com';
-            $mailer->Password = 'your_password';
-            $mailer->SMTPSecure = 'tls';
-            $mailer->Port = 587;
+            $mailer->Username = $config->SMTPUser; // Use values from Email config
+            $mailer->Password = $config->SMTPPass; // Use values from Email config
+            $mailer->SMTPSecure = $config->SMTPCrypto; // Use values from Email config
+            $mailer->Port = $config->SMTPPort; // Use values from Email config
 
             // Sender
-            $mailer->setFrom('your@example.com', 'Your Name');
+            $mailer->setFrom("auction@roundcircle.tech", 'The Auction'); // Use values from Email config
 
             foreach ($notifications as $notification) {
                 // Recipient

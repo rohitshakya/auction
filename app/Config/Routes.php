@@ -22,3 +22,6 @@ $routes->post('/createProduct', 'ProductController::createProduct');
 
 $routes->post('/auth', 'AuthController::login');
 $routes->get('/logout', 'AuthController::logout');
+
+
+$routes->get('/testEmail', 'NotificationController::sendEmailNotification');
