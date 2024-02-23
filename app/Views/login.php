@@ -25,7 +25,14 @@ body {
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" class="form-control" placeholder="Enter your password">
+                    <div class="input-group">
+                        <input type="password" id="password" class="form-control" placeholder="Enter your password">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                <i class="bi bi-eye" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <button id="loginButton" style="margin-top: 10px" class="btn btn-primary btn-block">Login</button>
@@ -56,8 +63,10 @@ $(document).ready(function(){
             dataType: "json", 
             data: { "email": email,"password": password},
             success: function(response) {
-              console.log(response);
-              return false;
+                console.log(response);
+                if (response.token) {
+                    window.location.href = "/";
+                }
             },
             error: function(xhr, status, error) {
                 console.error(status);
@@ -67,4 +76,21 @@ $(document).ready(function(){
         return false;
     });
 });
+</script>
+<script>
+    // JavaScript to toggle password visibility
+    document.getElementById("togglePassword").addEventListener("click", function() {
+        var passwordField = document.getElementById("password");
+        var icon = document.getElementById("toggleIcon");
+
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+        } else {
+            passwordField.type = "password";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+        }
+    });
 </script>

@@ -23,9 +23,23 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/addProduct">Add Product</a></li>
-                        <li class="nav-item dropdown">
+                    
+                    <?php 
+                    $role = session()->get('role');
+                    if(session()->get('token')): 
+                    ?>
+                        <?php if ($role === 'admin'): ?>
+                            <li class="nav-item"><a class="nav-link" href="/createCategories">Add Categories</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/createUsers">Add Users</a></li>
+                        <?php elseif ($role === 'buyer'): ?>
+                            <li class="nav-item"><a class="nav-link" href="/addProduct">Add Product</a></li>
+                        <?php elseif ($role === 'partner'): ?>
+                            <li class="nav-item"><a class="nav-link" href="/viewProducts">View Products</a></li>
+                        <?php endif; ?>
+                    <?php endif; ?>
+
+                    <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        <!-- <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="#!">All Products</a></li>
@@ -33,14 +47,14 @@
                                 <li><a class="dropdown-item" href="#!">Popular Items</a></li>
                                 <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
                             </ul>
-                        </li>
+                        </li> -->
                     </ul>
                     <form class="d-flex">
-                        <a href="/login" class="btn btn-outline-dark">
-                            <i class="bi bi-box-arrow-in-right me-1"></i> <!-- Login symbol -->
-                            Login
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                        </a>
+                        <?php if (session()->has('token')) : ?>
+                            <a href="/logout" class="btn">Logout</a>
+                        <?php else : ?>
+                            <a href="/login" class="btn">Login</a>
+                        <?php endif; ?>
                     </form>
                 </div>
             </div>

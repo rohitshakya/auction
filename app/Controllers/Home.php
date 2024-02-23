@@ -16,7 +16,7 @@ class Home extends BaseController
     {
         return view('header').view('login');
     }
-    public function postProduct(): string
+    public function addProduct(): string
     {
         $categoryModel = new CategoryModel();
         $data['categories'] = $categoryModel->findAll();
@@ -26,6 +26,15 @@ class Home extends BaseController
     {
         return view('header').view('about');
     }
+    public function createCategories(): string
+    {
+        return view('header').view('createCategoryView');
+    }
+    public function createUsers(): string
+    {
+        return view('header').view('createUserView');
+    }
+
 
     
 }

@@ -21,12 +21,18 @@ class AuthController extends BaseController
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password')??'';
         $user = $this->userModel->where('email', $email)->first();
+        
         if ($user) {
             if ($password===$user['password']) {
                 $token = bin2hex(random_bytes(32));
                 $this->userModel->update($user['id'], ['token' => $token]);
+                
                 session()->set('token', $token);
+                session()->set('role',$user['role']);
+                
                 $data['token'] = $token;
+                $data['role'] = $user['role'];
+                $data['msg'] = "Success";
                 return $this->respond($data);
             }
         }
@@ -34,6 +40,13 @@ class AuthController extends BaseController
         return $this->respond($data);
     }
 
+    public function logout()
+    {
+        session()->remove('token'); 
+        session()->destroy(); 
+        return redirect()->to(base_url('login'));
+
+    }
     public function signup()
     {
         // Handle signup form submission

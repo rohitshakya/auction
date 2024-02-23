@@ -11,6 +11,8 @@ class ProductController extends BaseController
 
     public function __construct()
     {
+
+        $this->checkSession();
         $this->ProductModel = new ProductModel();
     }
 
@@ -39,6 +41,7 @@ class ProductController extends BaseController
     }
     public function createProduct()
     {
+        $this->checkSession();
         $postData = $this->request->getPost();
         $pdfFile = $this->request->getFile('pdf_file');
         $fileData = file_get_contents($pdfFile->getTempName());
