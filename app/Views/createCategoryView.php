@@ -38,12 +38,10 @@ $(document).ready(function(){
         let categoryTitle = $("#categoryTitle").val();
 
         $.ajax({
-            url: "/createCategory",
+            url: "/addCategory",
             type: "POST", 
             dataType: "json",
-            processData: false,
-            contentType: false, 
-            data: {"category":categoryTitle},
+            data: {"categoryTitle":categoryTitle},
             success: function(response) {
                 console.log(response);
                 alert("Posted");

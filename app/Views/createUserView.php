@@ -60,7 +60,7 @@ $(document).ready(function(){
         let role = $("#role").val();
 
         $.ajax({
-            url: "/createUser",
+            url: "/addUser",
             type: "POST",
             dataType: "json",
             data: {

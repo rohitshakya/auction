@@ -18,6 +18,8 @@ $routes->get('/', 'ProductController::getProducts');
 $routes->get('/getProduct', 'ProductController::getProduct');
 $routes->get('/getBidsByProduct', 'BidController::getBidsByProduct');
 $routes->post('/createProduct', 'ProductController::createProduct');
+$routes->post('/addCategory', 'ProductController::addCategory');
+$routes->post('/addUser', 'ProductController::addUser');
 
 
 $routes->post('/auth', 'AuthController::login');

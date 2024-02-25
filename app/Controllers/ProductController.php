@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\ProductModel;
+use App\Models\CategoryModel;
+use App\Models\UserModel;
 use CodeIgniter\API\ResponseTrait;
 class ProductController extends BaseController
 {
@@ -61,6 +63,30 @@ class ProductController extends BaseController
         $this->ProductModel->insert($data);
         //$this->sendEmailNotification();
         return $this->respond(["Success"]);
+    }
+    public function addCategory()
+    {
+        $this->checkSession();
+        $postData = $this->request->getPost();
+        $data = [
+            'name' => $postData['categoryTitle']
+        ];
+        (new CategoryModel())->insert($data);
+        return $this->respond(["status"=>true,"msg"=>"Category Added!!"]);
+    }
+    public function addUser()
+    {
+        $this->checkSession();
+        $postData = $this->request->getPost();
+        $data = [
+            'username' => $postData['username'] ?? '',
+            'email' => $postData['email'] ?? '',
+            'password' => password_hash($postData['password'] ?? 'HelloWorld123#', PASSWORD_DEFAULT),
+            'role' => $postData['role'] ?? 'buyer'
+        ];
+        
+        (new UserModel())->insert($data);
+        return $this->respond(["status"=>true,"msg"=>"User Added!!"]);
     }
 }
 
