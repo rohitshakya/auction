@@ -13,16 +13,21 @@ class ProductController extends BaseController
 
     public function __construct()
     {
-
-        $this->checkSession();
         $this->ProductModel = new ProductModel();
     }
-
     public function getProducts()
     {
-        
+        $session = session();
+        if (!$session->has('token')) {
+            return redirect()->to(base_url('login'));
+        }
+        $sessionData = $session->get();
         $page = $this->request->getGet('page') ?? 1;
-        $products=$this->ProductModel->getAllProducts($page);
+        $products=array();
+        if($sessionData['role']=='admin')
+        {
+            $products=$this->ProductModel->getAllProducts($page);
+        }
         $totalProducts=$this->ProductModel->countAllResults();
         $data = [
             'products' => $products,

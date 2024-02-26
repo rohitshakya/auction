@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Models\ProductModel;
 use App\Models\CategoryModel;
 use CodeIgniter\API\ResponseTrait;
 class Home extends BaseController

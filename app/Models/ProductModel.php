@@ -25,4 +25,10 @@ class ProductModel extends Model
     {
         return $this->find($productId);
     }
+    public function getAllProductsByCategory($category, $page = 1)
+    {
+        $offset = ($page - 1) * $this->perPage;
+        return $this->where('category', $category)
+                    ->paginate($this->perPage, '', $offset);
+    }
 }
