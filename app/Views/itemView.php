@@ -11,6 +11,7 @@
 <!-- Section-->
 
 <?php 
+
 if(!empty($product))
 {?>
 
@@ -51,10 +52,9 @@ if(!empty($product))
                 <table class="table table-striped mt-4" id="bidTable">
                     <thead>
                         <tr>
-                            <th scope="col">Bidder</th>
-                            <th scope="col">Email</th>
                             <th scope="col">Bid Amount</th>
                             <th scope="col">Bid Time</th>
+                            <th scope="col">View Doc</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -83,31 +83,25 @@ if(!empty($product))
 </html>
 <script>
 
-    // Set the target bid time (in seconds)
-    //const targetBidTime = <//$targetBidTime ?>; // Replace $targetBidTime with your actual bid time in seconds
-    const targetBidTime = 10000000000; 
-    // Function to update the bid timer
+    var targetBidTime = new Date('+<?= $product['end_datetime'] ?>').getTime()/1000;
+    
     function updateBidTimer() {
-        const timerElement = document.getElementById('bidTimer');
-        const currentTime = Math.floor(Date.now() / 1000); // Get current time in seconds
+    const timerElement = document.getElementById('bidTimer');
+    const currentTime = Math.floor(Date.now() / 1000); 
+    const remainingTime = Math.max(0, Math.floor((targetBidTime - currentTime)));
+    if (remainingTime > 0) {
+        const days = Math.floor(remainingTime / (60 * 60 * 24));
+        const hours = Math.floor((remainingTime % (60 * 60 * 24)) / (60 * 60));
+        const minutes = Math.floor((remainingTime % (60 * 60)) / 60);
+        const seconds = remainingTime % 60;
 
-        const remainingTime = targetBidTime - currentTime;
-
-        if (remainingTime > 0) {
-            const minutes = Math.floor(remainingTime / 60);
-            const seconds = remainingTime % 60;
-
-            timerElement.innerHTML = `Time left: ${minutes}m ${seconds}s`;
-        } else {
-            timerElement.innerHTML = 'Bidding closed';
-            // Optionally, you can disable the bid input field and submit button here
-        }
+        timerElement.innerHTML = `Time left: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+    } else {
+        timerElement.innerHTML = 'Bidding closed';
     }
+}
 
-    // Update the bid timer every second
     setInterval(updateBidTimer, 1000);
-
-    // Initial update of the bid timer
     updateBidTimer();
 </script>
 <script>
@@ -159,10 +153,9 @@ function getBids()
             $.each(response, function(index, item) {
                 $('#bidTable tbody').append(
                     '<tr>' +
-                    '<td>' + item.user_id + '</td>' +
-                    '<td>' + item.product_id + '</td>' +
                     '<td>' + item.amount + '</td>' +
                     '<td>' + item.created_at + '</td>' +
+                    '<td>' +" <i class='bi bi-eye' aria-hidden='true'></i>"+ '</td>' +
                     '</tr>'
                 );
             });
