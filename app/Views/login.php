@@ -63,12 +63,15 @@ $(document).ready(function(){
             dataType: "json", 
             data: { "email": email,"password": password},
             success: function(response) {
-                console.log(response);
                 if (response.token) {
                     window.location.href = "/";
+                }else
+                {
+                showFlashMessage("Incorrect email or password.");
                 }
             },
             error: function(xhr, status, error) {
+                showFlashMessage("Incorrect email or password.");
                 console.error(status);
                 console.error(error);
             }

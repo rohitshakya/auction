@@ -31,15 +31,15 @@ class BidController extends BaseController
         
         $base64Data = base64_encode($fileData);
         $data = [
-            'product_id' => $postData['product_id'] ?? null,
+            'product_id' => $postData['productId'] ?? null,
             'partner_id' => $postData['partner_id'] ?? null,
-            'amount'     => $postData['amount'],
+            'amount'     => $postData['bidAmount'],
             'media'      => $base64Data ?? null, 
         ];
         
         (new BidModel)->insert($data);
         //$this->sendEmailNotification();
-        return $this->respond(["Success"]);
+        return $this->respond(["status"=>true,"msg"=>"Success"]);
     }
     
     

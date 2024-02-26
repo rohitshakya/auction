@@ -46,6 +46,7 @@ $(document).ready(function(){
                 showFlashMessage("Category created!");
             },
             error: function(xhr, status, error) {
+                showFlashMessage("Error");
                 console.error(status);
                 console.error(error);
             }

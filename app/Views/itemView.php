@@ -40,8 +40,8 @@ if(!empty($product))
                     <input type="number" class="form-control" id="bidAmount" name="bidAmount" placeholder="Enter your bid amount" required>
                 </div>
                 <div class="form-group mb-3">
-                <label for="pdf_file_bid">PDF File</label>
-                <input type="file" class="form-control" id="pdf_file_bid" name="pdf_file_bid" accept=".pdf">
+                <label for="pdf_file">PDF File</label>
+                <input type="file" class="form-control" id="pdf_file" name="pdf_file" accept=".pdf">
                 </div>
 
                 <!-- Submit Button -->
@@ -117,13 +117,13 @@ $(document).ready(function(){
    $("#placeBid").click(function(){
        let bidAmount = $("#bidAmount").val();
        let productId = "<?=$product['id'];?>";
-       let pdfFile = $("#pdf_file_bid")[0].files[0]; // Get the selected PDF file
+       let pdfFile = $("#pdf_file")[0].files[0]; // Get the selected PDF file
     
        // Create a FormData object to send the form data including the PDF file
        let formData = new FormData();
        formData.append('bidAmount', bidAmount);
        formData.append('productId', productId);
-       formData.append('pdf_file_bid', pdfFile);
+       formData.append('pdf_file', pdfFile);
 
        $.ajax({
            url: "/createBid",
@@ -134,6 +134,7 @@ $(document).ready(function(){
            data: formData, // Use FormData object
            success: function(response) {
                showFlashMessage("Bid has been posted");
+               getBids();
            },
            error: function(xhr, status, error) {
             showFlashMessage("Error");
@@ -167,8 +168,7 @@ function getBids()
             });
         },
         error: function(xhr, status, error) {
-            
-            console.error("AJAX request failed");
+            showFlashMessage("Bid not found");
             console.error(status);
             console.error(error);
         }
