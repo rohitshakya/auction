@@ -70,10 +70,10 @@ $(document).ready(function(){
                 role: role
             },
             success: function(response) {
-                console.log(response);
-                alert("User Created Successfully");
+                showFlashMessage("User has been created Successfully");
             },
             error: function(xhr, status, error) {
+                showFlashMessage("Error");
                 console.error(status);
                 console.error(error);
             }

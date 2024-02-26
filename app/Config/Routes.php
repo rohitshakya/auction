@@ -22,6 +22,8 @@ $routes->post('/createProduct', 'ProductController::createProduct');
 $routes->post('/addCategory', 'ProductController::addCategory');
 $routes->post('/addUser', 'ProductController::addUser');
 
+$routes->post('/createBid', 'BidController::createBid');
+
 
 $routes->post('/auth', 'AuthController::login');
 $routes->get('/logout', 'AuthController::logout');

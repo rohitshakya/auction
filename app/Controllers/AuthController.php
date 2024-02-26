@@ -21,17 +21,18 @@ class AuthController extends BaseController
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password')??'';
         $user = $this->userModel->where('email', $email)->first();
-        
         if ($user) {
             if ($password===$user['password']) {
                 $token = bin2hex(random_bytes(32));
                 $this->userModel->update($user['id'], ['token' => $token]);
                 
                 session()->set('token', $token);
+                session()->set('user_id', $user['id']);
                 session()->set('role',$user['role']);
                 
                 $data['token'] = $token;
                 $data['role'] = $user['role'];
+                $data['user_id'] = $user['id'];
                 $data['msg'] = "Success";
                 return $this->respond($data);
             }

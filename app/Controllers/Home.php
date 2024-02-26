@@ -7,6 +7,14 @@ use CodeIgniter\API\ResponseTrait;
 class Home extends BaseController
 {
     use ResponseTrait;
+    protected $sessionData;
+    public function __construct()
+    {
+        if(!$this->checkSession()){
+            return redirect()->to(base_url('login'))->send();
+        }
+        $this->sessionData = session()->get();
+    }
     public function bid(): string
     {
         return view('header').view('bid');

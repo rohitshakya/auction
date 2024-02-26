@@ -39,10 +39,14 @@ if(!empty($product))
                     <label for="bidAmount" class="form-label">Bid Amount</label>
                     <input type="number" class="form-control" id="bidAmount" name="bidAmount" placeholder="Enter your bid amount" required>
                 </div>
+                <div class="form-group mb-3">
+                <label for="pdf_file_bid">PDF File</label>
+                <input type="file" class="form-control" id="pdf_file_bid" name="pdf_file_bid" accept=".pdf">
+                </div>
 
                 <!-- Submit Button -->
                 <button type="submit" id="placeBid" class="btn btn-primary">Place Bid</button>
-
+                
                 <!-- Bid Listing Table -->
                 <table class="table table-striped mt-4" id="bidTable">
                     <thead>
@@ -107,25 +111,38 @@ if(!empty($product))
     updateBidTimer();
 </script>
 <script>
+
 $(document).ready(function(){
    
-    $("#placeBid").click(function(){
-        let bidAmount = $("#bidAmount").val();
-        let productId = "<?=$product['id'];?>";
-        $.ajax({
-            url: "/createBid",
-            type: "POST", 
-            dataType: "json", 
-            data: { "user_id": 2,"product_id": productId,"amount": bidAmount},
-            success: function(response) {
-                getBids(productId);
-            },
-            error: function(xhr, status, error) {
-                console.error(status);
-                console.error(error);
-            }
-        });
-    });
+   $("#placeBid").click(function(){
+       let bidAmount = $("#bidAmount").val();
+       let productId = "<?=$product['id'];?>";
+       let pdfFile = $("#pdf_file_bid")[0].files[0]; // Get the selected PDF file
+    
+       // Create a FormData object to send the form data including the PDF file
+       let formData = new FormData();
+       formData.append('bidAmount', bidAmount);
+       formData.append('productId', productId);
+       formData.append('pdf_file_bid', pdfFile);
+
+       $.ajax({
+           url: "/createBid",
+           type: "POST", 
+           dataType: "json",
+           processData: false, // Prevent jQuery from processing the data
+           contentType: false, // Prevent jQuery from setting content type
+           data: formData, // Use FormData object
+           success: function(response) {
+               showFlashMessage("Bid has been posted");
+           },
+           error: function(xhr, status, error) {
+            showFlashMessage("Error");
+               console.error(status);
+               console.error(error);
+           }
+       });
+       return false;
+   });
 });
 
 function getBids()

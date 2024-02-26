@@ -12,10 +12,27 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="../assets/css/styles.css" rel="stylesheet" />
+        <style>
+            .flash-message-container {
+            position: fixed;
+            z-index: 1050;
+            }
+            .flash-message {
+            padding: 10px 20px;
+            margin-bottom: 10px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            color: #fff;
+            background-color: #007bff; /* Bootstrap primary color */
+            border-color: #007bff;
+            }
+
+        </style>
         
     </head>
 
     <body>
+            
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
@@ -58,6 +75,22 @@
                     </form>
                 </div>
             </div>
+            <div id="flash-msg-container" class="flash-message-container">
+            </div>
         </nav>
+        
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function showFlashMessage(message) {
+  var flashMsgContainer = $('#flash-msg-container');
+  var flashMsg = $('<div class="flash-message">' + message + '</div>');
+
+  flashMsgContainer.append(flashMsg);
+
+  // Fade out the message after 5 seconds
+  flashMsg.delay(5000).fadeOut('slow', function() {
+    $(this).remove(); // Remove the element from DOM after fading out
+  });
+}
+</script>

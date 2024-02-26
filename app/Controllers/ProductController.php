@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\ProductModel;
+use App\Models\PartnerCategoryModel;
 use App\Models\CategoryModel;
 use App\Models\UserModel;
 use CodeIgniter\API\ResponseTrait;
@@ -10,23 +11,34 @@ class ProductController extends BaseController
 {
     use ResponseTrait;
     protected $ProductModel;
+    protected $sessionData;
 
     public function __construct()
     {
+        if(!$this->checkSession()){
+            return redirect()->to(base_url('login'))->send();
+        }
+        $this->sessionData = session()->get();
         $this->ProductModel = new ProductModel();
+        
     }
     public function getProducts()
     {
-        $session = session();
-        if (!$session->has('token')) {
-            return redirect()->to(base_url('login'));
-        }
-        $sessionData = $session->get();
         $page = $this->request->getGet('page') ?? 1;
         $products=array();
-        if($sessionData['role']=='admin')
+        if($this->sessionData['role']=='admin')
         {
             $products=$this->ProductModel->getAllProducts($page);
+        }
+        else if($this->sessionData['role']=='partner')
+        {
+            $cat_id = (new PartnerCategoryModel)->getCategoriesByUserId($this->sessionData['user_id']);
+            $catIds = [];
+            foreach ($cat_id as $result) {
+                $catIds[] = $result['category_id'];
+            }
+            
+            $products=$this->ProductModel->getAllProductsByCategories($catIds,$page);
         }
         $totalProducts=$this->ProductModel->countAllResults();
         $data = [
@@ -48,7 +60,6 @@ class ProductController extends BaseController
     }
     public function createProduct()
     {
-        $this->checkSession();
         $postData = $this->request->getPost();
         $pdfFile = $this->request->getFile('pdf_file');
         $fileData = file_get_contents($pdfFile->getTempName());
@@ -71,7 +82,6 @@ class ProductController extends BaseController
     }
     public function addCategory()
     {
-        $this->checkSession();
         $postData = $this->request->getPost();
         $data = [
             'name' => $postData['categoryTitle']
@@ -81,7 +91,6 @@ class ProductController extends BaseController
     }
     public function addUser()
     {
-        $this->checkSession();
         $postData = $this->request->getPost();
         $data = [
             'username' => $postData['username'] ?? '',

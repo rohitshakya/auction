@@ -10,6 +10,14 @@ use Config\Services;
 
 class NotificationController extends BaseController
 {
+    protected $sessionData;
+    public function __construct()
+    {
+        if(!$this->checkSession()){
+            return redirect()->to(base_url('login'))->send();
+        }
+        $this->sessionData = session()->get();
+    }
     public function sendEmailNotification()
     {
         $config = config('Email');

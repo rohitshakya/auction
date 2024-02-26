@@ -92,10 +92,10 @@ $(document).ready(function(){
             contentType: false, // Prevent jQuery from setting content type
             data: formData, // Use FormData object
             success: function(response) {
-                console.log(response);
-                alert("Posted");
+                showFlashMessage("Auction has been created");
             },
             error: function(xhr, status, error) {
+                showFlashMessage("Error");
                 console.error(status);
                 console.error(error);
             }
