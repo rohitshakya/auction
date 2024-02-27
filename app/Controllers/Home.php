@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\CategoryModel;
+use App\Models\ProductModel;
 use CodeIgniter\API\ResponseTrait;
 class Home extends BaseController
 {
@@ -41,7 +42,34 @@ class Home extends BaseController
     {
         return view('header').view('createUserView');
     }
+    public function mapPartner(): string
+    {
+        return view('header').view('mapPartnerCategoryView');
+    }
+    public function viewUsers(): string
+    {
+        return view('header').view('mapPartnerCategoryView');
+    }
+    public function viewProducts(): string
+    {
 
+        $productModel = new ProductModel();
+        $page = $this->request->getGet('page') ?? 1;
+        $products=array();
+        $totalProducts = 0;
+        if($this->sessionData && $this->sessionData['role']=='admin')
+        {
+            $products=$productModel->getAllProducts($page);
+            $totalProducts=$productModel->countAllResults();
+        }
+        $data = [
+            'products' => $products,
+            'currentPage'=>$page,
+            'totalPages'=>$totalProducts/10
+        ];
+        return view('header').view('productListing',$data);
+    }
+    
 
     
 }

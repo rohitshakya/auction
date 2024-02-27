@@ -14,7 +14,9 @@ $routes->get('/viewPdf', 'Home::viewPdf');
 $routes->get('/createCategories', 'Home::createCategories');
 $routes->get('/createUsers', 'Home::createUsers');
 $routes->get('/addProduct', 'Home::addProduct');
-
+$routes->get('/mapPartner', 'Home::mapPartner');
+$routes->get('/viewProducts', 'Home::viewProducts');
+$routes->get('/viewUsers', 'Home::viewUsers');
 
 $routes->get('/getProduct', 'ProductController::getProduct');
 $routes->get('/getBidsByProduct', 'BidController::getBidsByProduct');
@@ -24,9 +26,7 @@ $routes->post('/addUser', 'ProductController::addUser');
 
 $routes->post('/createBid', 'BidController::createBid');
 
-
 $routes->post('/auth', 'AuthController::login');
 $routes->get('/logout', 'AuthController::logout');
-
 
 $routes->get('/testEmail', 'NotificationController::sendEmailNotification');

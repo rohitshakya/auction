@@ -50,7 +50,7 @@
                             <li class="nav-item"><a class="nav-link" href="/addProduct">Products</a></li>
                             <li class="nav-item"><a class="nav-link" href="/createUsers">Users</a></li>
                             <li class="nav-item"><a class="nav-link" href="/createCategories">Categories</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/addProduct">Map Partner</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/mapPartner">Map Partner</a></li>
                         <?php elseif ($role === 'buyer'): ?>
                             <li class="nav-item"><a class="nav-link" href="/addProduct">Products</a></li>
                         <?php elseif ($role === 'partner'): ?>

@@ -3,6 +3,10 @@
 ?>
 
 <div class="container mt-4">
+
+<div class="d-flex justify-content-end">
+    <a id="viewUsers" href="/viewUsers" class="btn btn-primary">View Users</a>
+</div>
     <h2>Create User</h2>
     <p>Fill in the details to create a new user.</p>
 

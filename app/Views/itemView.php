@@ -11,64 +11,53 @@
 <!-- Section-->
 
 <?php 
-
-if(!empty($product))
-{?>
+if(!empty($product)) {?>
 
 <section class="py-5">
     <div class="container px-4 px-lg-5 my-5">
         <div class="row gx-4 gx-lg-5 align-items-center">
-            <div class="col-md-6">
-                <?php if(empty($product))
-                {
-                    ?>
-                    <img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="...">
-                <?php }else {?>
-        <iframe id="pdfViewer" style="width: 100%; height: 500px;" frameborder="0"></iframe><?php }?>
-    </div>
-            <div class="col-md-6">
-                <!-- <div class="small mb-1">SKU: BST-498</div>-->
-                <h1 class="display-5 fw-bolder"><?= $product['title']??''?></h1>
-                <div class="fs-5 mb-5">
-                    <!--<span class="text-decoration-line-through"><?= $product['budget']??''?></span>-->
-                    <span><?= $product['budget']??''?></span>
+            <?php if(!empty($product)) {?>
+                <div class="col-md-6">
+                    <iframe id="pdfViewer" style="width: 100%; height: 500px;" frameborder="0"></iframe>
                 </div>
-                <p class="lead"><?= $product['description']??''?></p>
-                <div id="bidTimer" class="text-center mb-4"></div>
-                <!-- Bid Input Field -->
-                <div class="mb-3">
-                    <label for="bidAmount" class="form-label">Bid Amount</label>
-                    <input type="number" class="form-control" id="bidAmount" name="bidAmount" placeholder="Enter your bid amount" required>
+                <div class="col-md-6">
+                    <h1 class="display-5 fw-bolder"><?= $product['title'] ?? ''?></h1>
+                    <div class="fs-5 mb-5">
+                        <span><?= $product['budget'] ?? ''?></span>
+                    </div>
+                    <p class="lead"><?= $product['description'] ?? ''?></p>
+                    <div id="bidTimer" class="text-center mb-4"></div>
+                    <div class="mb-3">
+                        <label for="bidAmount" class="form-label">Bid Amount</label>
+                        <input type="number" class="form-control" id="bidAmount" name="bidAmount" placeholder="Enter your bid amount" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="pdf_file">PDF File</label>
+                        <input type="file" class="form-control" id="pdf_file" name="pdf_file" accept=".pdf">
+                    </div>
+                    <button type="submit" id="placeBid" class="btn btn-primary">Place Bid</button>
+                    <table class="table table-striped mt-4" id="bidTable">
+                        <thead>
+                            <tr>
+                                <th scope="col">Bid Amount</th>
+                                <th scope="col">Bid Time</th>
+                                <th scope="col">View Doc</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
-                <div class="form-group mb-3">
-                <label for="pdf_file">PDF File</label>
-                <input type="file" class="form-control" id="pdf_file" name="pdf_file" accept=".pdf">
+            <?php } else {?>
+                <div class="col-md-12 text-center">
+                    <p>No product found.</p>
                 </div>
-
-                <!-- Submit Button -->
-                <button type="submit" id="placeBid" class="btn btn-primary">Place Bid</button>
-                
-                <!-- Bid Listing Table -->
-                <table class="table table-striped mt-4" id="bidTable">
-                    <thead>
-                        <tr>
-                            <th scope="col">Bid Amount</th>
-                            <th scope="col">Bid Time</th>
-                            <th scope="col">View Doc</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-
-            </div>
+            <?php }?>
         </div>
     </div>
 </section>
 
-    <?php } 
-?>
-
+<?php } ?>
 
 <!-- Footer-->
 <footer class="py-5 bg-dark">
@@ -83,7 +72,7 @@ if(!empty($product))
 </html>
 <script>
 
-    var targetBidTime = new Date('+<?= $product['end_datetime'] ?>').getTime()/1000;
+    var targetBidTime = new Date('+<?= $product['end_datetime']??"" ?>').getTime()/1000;
     
     function updateBidTimer() {
     const timerElement = document.getElementById('bidTimer');
@@ -110,7 +99,7 @@ $(document).ready(function(){
    
    $("#placeBid").click(function(){
        let bidAmount = $("#bidAmount").val();
-       let productId = "<?=$product['id'];?>";
+       let productId = "<?=$product['id']??0;?>";
        let pdfFile = $("#pdf_file")[0].files[0]; // Get the selected PDF file
     
        // Create a FormData object to send the form data including the PDF file
@@ -142,7 +131,7 @@ $(document).ready(function(){
 
 function getBids()
 {
-    let productId = "<?=$product['id'];?>";
+    let productId = "<?=$product['id']??0;?>";
     $.ajax({
         url: "/getBidsByProduct",
         type: "GET", 
@@ -172,6 +161,6 @@ getBids();
 </script>
 
 <script>
-var pdfData="<?php echo 'data:application/pdf;base64,'.$product['media'];?>";
+var pdfData="<?php echo 'data:application/pdf;base64,'.($product['media']??'');?>";
 $("#pdfViewer").attr("src", pdfData);
 </script>

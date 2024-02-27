@@ -6,23 +6,23 @@
 <div class="container mt-4">
 
 <div class="d-flex justify-content-end">
-    <a id="viewCategories" href="/viewCategories" class="btn btn-primary">View Categories</a>
+    <a id="viewProducts" href="/viewProducts" class="btn btn-primary">View Products</a>
 </div>
-<h2>Post Categories for Bidding</h2>
-<p>Provide the details of the category you want to post for bidding.</p>
+<h2>Post Product for Bidding</h2>
+<p>Provide the details of the product you want to post for bidding.</p>
 
 <!-- Contract Form -->
 <div class="card">
 <div class="card-header">
-Category Details
+Product Details
 </div>
 <div class="card-body">
 <form>
-<div class="form-group">
-    <label for="categoryTitle">Category Title</label>
-    <input type="text" class="form-control" id="categoryTitle" placeholder="Enter Category title">
-</div>
-<button id="createCategory" class="btn btn-primary" style="margin-top:10px">Create Category</button>
+
+
+
+
+<button id="mapPartnercategory" class="btn btn-primary" style="margin-top:10px">Map</button>
 </form>
 </div>
 </div>
@@ -38,16 +38,18 @@ Category Details
 <script>
 $(document).ready(function(){
    
-    $("#createCategory").click(function(){
-        let categoryTitle = $("#categoryTitle").val();
+    $("#mapPartnercategory").click(function(){
+        
 
         $.ajax({
-            url: "/addCategory",
+            url: "/createProduct..",
             type: "POST", 
             dataType: "json",
-            data: {"categoryTitle":categoryTitle},
+            processData: false, // Prevent jQuery from processing the data
+            contentType: false, // Prevent jQuery from setting content type
+            data: formData, // Use FormData object
             success: function(response) {
-                FlashMessage("Category created!");
+                FlashMessage("Auction has been created");
             },
             error: function(xhr, status, error) {
                 FlashMessage("Error");

@@ -4,6 +4,10 @@
 
 <!-- Main Content -->
 <div class="container mt-4">
+
+<div class="d-flex justify-content-end">
+    <a id="viewProducts" href="/viewProducts" class="btn btn-primary">View Products</a>
+</div>
 <h2>Post Product for Bidding</h2>
 <p>Provide the details of the product you want to post for bidding.</p>
 
