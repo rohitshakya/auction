@@ -2,17 +2,18 @@
 ?>
 
 <style>
-body {
-    background-color: #f8f9fa;
-}
-.login-form {
-    width: 360px;
-    margin: 50px auto;
-    padding: 30px;
-    border: 1px solid #ddd;
-    background-color: #fff;
-    border-radius: 5px;
-}
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .login-form {
+        width: 360px;
+        margin: 50px auto;
+        padding: 30px;
+        border: 1px solid #ddd;
+        background-color: #fff;
+        border-radius: 5px;
+    }
 </style>
 <div class="container">
     <div class="row">
@@ -48,37 +49,40 @@ body {
 <!-- Core theme JS-->
 <script src="../assets/js/scripts.js"></script>
 </body>
+
 </html>
 
 <script>
-$(document).ready(function(){
-   
-    $("#loginButton").click(function(){
-       
-        let email = $("#username").val();
-        let password = $("#password").val();;
-        $.ajax({
-            url: "/auth",
-            type: "POST", 
-            dataType: "json", 
-            data: { "email": email,"password": password},
-            success: function(response) {
-                if (response.token) {
-                    window.location.href = "/";
-                }else
-                {
+    $(document).ready(function() {
+
+        $("#loginButton").click(function() {
+
+            let email = $("#username").val();
+            let password = $("#password").val();;
+            $.ajax({
+                url: "/auth",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    "email": email,
+                    "password": password
+                },
+                success: function(response) {
+                    if (response.token) {
+                        window.location.href = "/";
+                    } else {
+                        FlashMessage("Incorrect email or password.");
+                    }
+                },
+                error: function(xhr, status, error) {
                     FlashMessage("Incorrect email or password.");
+                    console.error(status);
+                    console.error(error);
                 }
-            },
-            error: function(xhr, status, error) {
-                FlashMessage("Incorrect email or password.");
-                console.error(status);
-                console.error(error);
-            }
+            });
+            return false;
         });
-        return false;
     });
-});
 </script>
 <script>
     // JavaScript to toggle password visibility

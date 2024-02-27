@@ -49,31 +49,30 @@
 <!-- Core theme JS-->
 <script src="../assets/js/scripts.js"></script>
 <script>
-    $(document).ready(function(){
-    $("#partnerCategoryForm").submit(function(e){
-        e.preventDefault(); // Prevent the default form submission
+    $(document).ready(function() {
+        $("#partnerCategoryForm").submit(function(e) {
+            e.preventDefault(); // Prevent the default form submission
 
-        let partner_id = $("#partnerSelect").val();
-        let category_id = $("#categorySelect").val();
+            let partner_id = $("#partnerSelect").val();
+            let category_id = $("#categorySelect").val();
 
-        $.ajax({
-            url: "/mapPartnerCategory",
-            type: "POST",
-            dataType: "json",
-            data: {
-                "partner_id": partner_id,
-                "category_id": category_id,
-            },
-            success: function(response) {
-                FlashMessage("Partner has been mapped.");
-            },
-            error: function(xhr, status, error) {
-                FlashMessage("Error");
-                console.error(status);
-                console.error(error);
-            }
+            $.ajax({
+                url: "/mapPartnerCategory",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    "partner_id": partner_id,
+                    "category_id": category_id,
+                },
+                success: function(response) {
+                    FlashMessage("Partner has been mapped.");
+                },
+                error: function(xhr, status, error) {
+                    FlashMessage("Error");
+                    console.error(status);
+                    console.error(error);
+                }
+            });
         });
     });
-});
-    
 </script>
