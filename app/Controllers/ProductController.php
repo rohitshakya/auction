@@ -26,11 +26,13 @@ class ProductController extends BaseController
     {
         $page = $this->request->getGet('page') ?? 1;
         $products=array();
-        if($this->sessionData['role']=='admin')
+        $totalProducts = 0;
+        if($this->sessionData && $this->sessionData['role']=='admin')
         {
             $products=$this->ProductModel->getAllProducts($page);
+            $totalProducts=$this->ProductModel->countAllResults();
         }
-        else if($this->sessionData['role']=='partner')
+        else if($this->sessionData && $this->sessionData['role']=='partner')
         {
             $cat_id = (new PartnerCategoryModel)->getCategoriesByUserId($this->sessionData['user_id']);
             $catIds = [];
@@ -39,8 +41,8 @@ class ProductController extends BaseController
             }
             
             $products=$this->ProductModel->getAllProductsByCategories($catIds,$page);
+            $totalProducts=$this->ProductModel->countAllResults();
         }
-        $totalProducts=$this->ProductModel->countAllResults();
         $data = [
             'products' => $products,
             'currentPage'=>$page,
@@ -77,7 +79,9 @@ class ProductController extends BaseController
             'status' => $postData['status'] ?? 'active'
         ];
         $this->ProductModel->insert($data);
-        //$this->sendEmailNotification();
+        $emailController = new NotificationController();
+        
+        $emailController->sendEmailNotification();
         return $this->respond(["Success"]);
     }
     public function addCategory()

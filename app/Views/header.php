@@ -48,6 +48,9 @@
                         <?php if ($role === 'admin'): ?>
                             <li class="nav-item"><a class="nav-link" href="/createCategories">Add Categories</a></li>
                             <li class="nav-item"><a class="nav-link" href="/createUsers">Add Users</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/addProduct">Add Product</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/addProduct">Map Partner</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/addProduct">Users</a></li>
                         <?php elseif ($role === 'buyer'): ?>
                             <li class="nav-item"><a class="nav-link" href="/addProduct">Add Product</a></li>
                         <?php elseif ($role === 'partner'): ?>
