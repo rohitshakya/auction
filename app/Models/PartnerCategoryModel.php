@@ -5,7 +5,7 @@ use CodeIgniter\Model;
 
 class PartnerCategoryModel extends Model
 {
-    protected $table = 'partner_category';
+    protected $table = 'partnerCategory';
     protected $primaryKey = 'partner_id';
 
     protected $allowedFields = ['partner_id', 'category_id'];

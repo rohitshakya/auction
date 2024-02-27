@@ -18,6 +18,7 @@ $routes->get('/mapPartner', 'Home::mapPartner');
 $routes->get('/viewProducts', 'Home::viewProducts');
 $routes->get('/viewCategories', 'Home::viewCategories');
 $routes->get('/viewUsers', 'Home::viewUsers');
+$routes->get('/viewMappings', 'Home::viewMappings');
 
 $routes->get('/getProduct', 'ProductController::getProduct');
 $routes->get('/getBidsByProduct', 'BidController::getBidsByProduct');
@@ -26,6 +27,7 @@ $routes->post('/addCategory', 'ProductController::addCategory');
 $routes->post('/addUser', 'ProductController::addUser');
 
 $routes->post('/createBid', 'BidController::createBid');
+$routes->post('/mapPartnerCategory', 'Home::mapPartnerCategory');
 
 $routes->post('/auth', 'AuthController::login');
 $routes->get('/logout', 'AuthController::logout');

@@ -27,8 +27,14 @@
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
+                    <div class="form-group input-group">
                     <input type="password" class="form-control" id="password" placeholder="Enter Password">
+                    <button class="btn btn-primary" type="button" id="generatePassword">Generate Password</button>
                 </div>
+                </div>
+
+                
+
                 <div class="form-group">
                     <label for="role">Role</label>
                     <select class="form-control" id="role">
@@ -85,3 +91,20 @@ $(document).ready(function(){
     });
 });
 </script>
+<script>
+        document.getElementById('generatePassword').addEventListener('click', function() {
+            var passwordLength = 8; // Change the password length as needed
+            var password = generatePassword(passwordLength);
+            document.getElementById('password').value = password;
+        });
+
+        function generatePassword(length) {
+            var charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@";
+            var password = "";
+            for (var i = 0; i < length; i++) {
+                var randomIndex = Math.floor(Math.random() * charset.length);
+                password += charset[randomIndex];
+            }
+            return password;
+        }
+    </script>

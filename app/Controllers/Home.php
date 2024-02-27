@@ -6,6 +6,7 @@ use App\Models\CategoryModel;
 use App\Models\ProductModel;
 use App\Models\UserModel;
 use CodeIgniter\API\ResponseTrait;
+use App\Models\PartnerCategoryModel;
 class Home extends BaseController
 {
     use ResponseTrait;
@@ -45,7 +46,11 @@ class Home extends BaseController
     }
     public function mapPartner(): string
     {
-        return view('header').view('mapPartnerCategoryView');
+        $userModel = new UserModel();
+        $categoryModel = new CategoryModel();
+        $data['users']=$userModel->findAll();
+        $data['categories']=$categoryModel->findAll();
+        return view('header').view('mapPartnerCategoryView',$data);
     }
     public function viewUsers(): string
     {
@@ -104,6 +109,38 @@ class Home extends BaseController
         ];
         return view('header').view('categoryListing',$data);
     }
+    public function mapPartnerCategory()
+    {
+        $postData = $this->request->getPost();
+        $data = [
+            'partner_id' => $postData['partner_id'],
+            'category_id' => $postData['category_id'] 
+        ];
+        (new PartnerCategoryModel)->insert($data);
+        return $this->respond(["Success"]);
+    }
+    public function viewMappings(): string
+    {
+
+        $PartnerCategoryModel = new PartnerCategoryModel();
+        $page = $this->request->getGet('page') ?? 1;
+        $mappings=array();
+        $totalMappings = 0;
+        if($this->sessionData && $this->sessionData['role']=='admin')
+        {
+            $mappings=$PartnerCategoryModel->findAll();
+            $totalMappings=$PartnerCategoryModel->countAllResults();
+        }
+        $data = [
+            'mappings' => $mappings,
+            'currentPage'=>$page,
+            'totalPages'=>$totalMappings/10
+        ];
+        return view('header').view('viewMappings',$data);
+    }
+
+    
+    
     
 
     
