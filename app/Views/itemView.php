@@ -25,8 +25,9 @@ if(!empty($product)) {?>
                     <div class="fs-5 mb-5">
                         <span><?= $product['budget'] ?? ''?></span>
                     </div>
-                    <p class="lead"><?= $product['description'] ?? ''?></p>
+                    <p class="lead">Product Description:  <?= $product['description'] ?? ''?></p>
                     <div id="bidTimer" class="text-center mb-4"></div>
+                    <?php if(session('role')=='partner'){?>
                     <div class="mb-3">
                         <label for="bidAmount" class="form-label">Bid Amount</label>
                         <input type="number" class="form-control" id="bidAmount" name="bidAmount" placeholder="Enter your bid amount" required>
@@ -35,8 +36,10 @@ if(!empty($product)) {?>
                         <label for="pdf_file">PDF File</label>
                         <input type="file" class="form-control" id="pdf_file" name="pdf_file" accept=".pdf">
                     </div>
+                    
                     <button type="submit" id="placeBid" class="btn btn-primary">Place Bid</button>
-                    <table class="table table-striped mt-4" id="bidTable">
+                    <?php }?>
+                        <table class="table table-striped mt-4" id="bidTable">
                         <thead>
                             <tr>
                                 <th scope="col">Bid Amount</th>
@@ -100,10 +103,13 @@ $(document).ready(function(){
    $("#placeBid").click(function(){
        let bidAmount = $("#bidAmount").val();
        let productId = "<?=$product['id']??0;?>";
+       let partnerId = "<?=session('user_id');?>";
        let pdfFile = $("#pdf_file")[0].files[0]; // Get the selected PDF file
     
        // Create a FormData object to send the form data including the PDF file
        let formData = new FormData();
+
+       formData.append('partnerId', partnerId);
        formData.append('bidAmount', bidAmount);
        formData.append('productId', productId);
        formData.append('pdf_file', pdfFile);
@@ -131,13 +137,15 @@ $(document).ready(function(){
 
 function getBids()
 {
-    let productId = "<?=$product['id']??0;?>";
+    let productId = "<?=$product['id']?>";
+    console.log(productId);
     $.ajax({
         url: "/getBidsByProduct",
         type: "GET", 
         dataType: "json", 
         data: { "id": productId},
         success: function(response) {
+            console.log(response);
             $('#bidTable tbody').empty();
             $.each(response, function(index, item) {
                 $('#bidTable tbody').append(

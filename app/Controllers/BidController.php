@@ -18,9 +18,19 @@ class BidController extends BaseController
     }
     public function getBidsByProduct()
     {
-        $productId = $this->request->getGet('productId') ?? 1;
+        $getData = $this->request->getGet();
+        $productId=$getData['id'];
         $bidModel = new BidModel();
-        $bids = $bidModel->where('product_id', $productId)->orderBy('id', 'DESC')->findAll();
+        if(session('role')=='partner')
+        {
+            $bids = $bidModel->where('product_id', $productId)
+            ->where('partner_id', session('user_id'))
+            ->orderBy('id', 'DESC')->findAll();
+        }else
+        {   
+            $bids = $bidModel->where('product_id', $productId)
+            ->orderBy('id', 'DESC')->findAll();
+        }
         return $this->respond($bids);
     }
     public function createBid()
@@ -32,7 +42,7 @@ class BidController extends BaseController
         $base64Data = base64_encode($fileData);
         $data = [
             'product_id' => $postData['productId'] ?? null,
-            'partner_id' => $postData['partner_id'] ?? null,
+            'partner_id' => $postData['partnerId'] ?? null,
             'amount'     => $postData['bidAmount'],
             'media'      => $base64Data ?? null, 
         ];
