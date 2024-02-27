@@ -67,11 +67,11 @@ $(document).ready(function(){
                     window.location.href = "/";
                 }else
                 {
-                showFlashMessage("Incorrect email or password.");
+                    FlashMessage("Incorrect email or password.");
                 }
             },
             error: function(xhr, status, error) {
-                showFlashMessage("Incorrect email or password.");
+                FlashMessage("Incorrect email or password.");
                 console.error(status);
                 console.error(error);
             }

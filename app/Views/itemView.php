@@ -127,11 +127,11 @@ $(document).ready(function(){
            contentType: false, // Prevent jQuery from setting content type
            data: formData, // Use FormData object
            success: function(response) {
-               showFlashMessage("Bid has been posted");
+            FlashMessage("Bid has been posted");
                getBids();
            },
            error: function(xhr, status, error) {
-            showFlashMessage("Error");
+            FlashMessage("Error");
                console.error(status);
                console.error(error);
            }
@@ -161,7 +161,7 @@ function getBids()
             });
         },
         error: function(xhr, status, error) {
-            showFlashMessage("Bid not found");
+            FlashMessage("Bid not found");
             console.error(status);
             console.error(error);
         }

@@ -43,10 +43,10 @@ $(document).ready(function(){
             dataType: "json",
             data: {"categoryTitle":categoryTitle},
             success: function(response) {
-                showFlashMessage("Category created!");
+                FlashMessage("Category created!");
             },
             error: function(xhr, status, error) {
-                showFlashMessage("Error");
+                FlashMessage("Error");
                 console.error(status);
                 console.error(error);
             }

@@ -46,15 +46,15 @@
                     if(session()->get('token')): 
                     ?>
                         <?php if ($role === 'admin'): ?>
-                            <li class="nav-item"><a class="nav-link" href="/createCategories">Add Categories</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/createUsers">Add Users</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/addProduct">Add Product</a></li>
+
+                            <li class="nav-item"><a class="nav-link" href="/addProduct">Products</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/createUsers">Users</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/createCategories">Categories</a></li>
                             <li class="nav-item"><a class="nav-link" href="/addProduct">Map Partner</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/addProduct">Users</a></li>
                         <?php elseif ($role === 'buyer'): ?>
-                            <li class="nav-item"><a class="nav-link" href="/addProduct">Add Product</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/addProduct">Products</a></li>
                         <?php elseif ($role === 'partner'): ?>
-                            <li class="nav-item"><a class="nav-link" href="/viewProducts">View Products</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/viewProducts">Products</a></li>
                         <?php endif; ?>
                     <?php endif; ?>
 
@@ -85,15 +85,14 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    function showFlashMessage(message) {
+    function FlashMessage(message) {
   var flashMsgContainer = $('#flash-msg-container');
   var flashMsg = $('<div class="flash-message">' + message + '</div>');
 
   flashMsgContainer.append(flashMsg);
 
-  // Fade out the message after 5 seconds
   flashMsg.delay(5000).fadeOut('slow', function() {
-    $(this).remove(); // Remove the element from DOM after fading out
+    $(this).remove();
   });
 }
 </script>
