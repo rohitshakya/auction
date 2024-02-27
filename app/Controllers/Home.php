@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\CategoryModel;
 use App\Models\ProductModel;
+use App\Models\UserModel;
 use CodeIgniter\API\ResponseTrait;
 class Home extends BaseController
 {
@@ -48,7 +49,22 @@ class Home extends BaseController
     }
     public function viewUsers(): string
     {
-        return view('header').view('mapPartnerCategoryView');
+
+        $userModel = new UserModel();
+        $page = $this->request->getGet('page') ?? 1;
+        $users=array();
+        $totalUsers = 0;
+        if($this->sessionData && $this->sessionData['role']=='admin')
+        {
+            $users=$userModel->getAllUsers($page);
+            $totalUsers=$userModel->countAllResults();
+        }
+        $data = [
+            'users' => $users,
+            'currentPage'=>$page,
+            'totalPages'=>$totalUsers/10
+        ];
+        return view('header').view('userListing',$data);
     }
     public function viewProducts(): string
     {
@@ -68,6 +84,25 @@ class Home extends BaseController
             'totalPages'=>$totalProducts/10
         ];
         return view('header').view('productListing',$data);
+    }
+    public function viewCategories(): string
+    {
+
+        $categoryModel = new CategoryModel();
+        $page = $this->request->getGet('page') ?? 1;
+        $categories=array();
+        $totalCategories = 0;
+        if($this->sessionData && $this->sessionData['role']=='admin')
+        {
+            $categories=$categoryModel->getAllCategories($page);
+            $totalCategories=$categoryModel->countAllResults();
+        }
+        $data = [
+            'categories' => $categories,
+            'currentPage'=>$page,
+            'totalPages'=>$totalCategories/10
+        ];
+        return view('header').view('categoryListing',$data);
     }
     
 

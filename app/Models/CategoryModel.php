@@ -8,4 +8,9 @@ class CategoryModel extends Model
     protected $primaryKey = 'id';
 
     protected $allowedFields = ['name', 'created_at'];
+    public function getAllCategories($page = 1)
+    {
+        $offset = ($page - 1) * $this->perPage;
+        return $this->paginate($this->perPage, '', $offset);
+    }
 }

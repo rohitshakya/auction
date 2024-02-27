@@ -16,6 +16,7 @@ $routes->get('/createUsers', 'Home::createUsers');
 $routes->get('/addProduct', 'Home::addProduct');
 $routes->get('/mapPartner', 'Home::mapPartner');
 $routes->get('/viewProducts', 'Home::viewProducts');
+$routes->get('/viewCategories', 'Home::viewCategories');
 $routes->get('/viewUsers', 'Home::viewUsers');
 
 $routes->get('/getProduct', 'ProductController::getProduct');

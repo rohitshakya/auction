@@ -10,4 +10,9 @@ class UserModel extends Model
     protected $primaryKey = 'id';
     protected $allowedFields = ['username', 'email', 'password', 'token', 'role', 'created_at'];
     protected $useTimestamps = false;
+    public function getAllUsers($page = 1)
+    {
+        $offset = ($page - 1) * $this->perPage;
+        return $this->paginate($this->perPage, '', $offset);
+    }
 }
