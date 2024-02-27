@@ -15,9 +15,11 @@ class ProductController extends BaseController
 
     public function __construct()
     {
+        
         if(!$this->checkSession()){
             return redirect()->to(base_url('login'))->send();
         }
+        
         $this->sessionData = session()->get();
         $this->ProductModel = new ProductModel();
         
@@ -39,9 +41,11 @@ class ProductController extends BaseController
             foreach ($cat_id as $result) {
                 $catIds[] = $result['category_id'];
             }
-            
-            $products=$this->ProductModel->getAllProductsByCategories($catIds,$page);
-            $totalProducts=$this->ProductModel->countAllResults();
+            if(!empty($catIds))
+            {
+                $products=$this->ProductModel->getAllProductsByCategories($catIds,$page);
+                $totalProducts=$this->ProductModel->countAllResults();
+            }
         }
         $data = [
             'products' => $products,
@@ -97,9 +101,9 @@ class ProductController extends BaseController
     {
         $postData = $this->request->getPost();
         $data = [
-            'username' => $postData['username'] ?? '',
+            'username' => $postData['username'],
             'email' => $postData['email'] ?? '',
-            'password' => password_hash($postData['password'] ?? 'HelloWorld123#', PASSWORD_DEFAULT),
+            'password' => password_hash($postData['password'], PASSWORD_DEFAULT),
             'role' => $postData['role'] ?? 'buyer'
         ];
         

@@ -18,6 +18,7 @@ class ProductModel extends Model
 
     public function getAllProducts($page = 1)
     {
+       
         $offset = ($page - 1) * $this->perPage;
         return $this->paginate($this->perPage, '', $offset);
     }

@@ -18,11 +18,11 @@ class AuthController extends BaseController
     public function login()
     {
        
-        $email = $this->request->getPost('email');
-        $password = $this->request->getPost('password')??'';
-        $user = $this->userModel->where('email', $email)->first();
+        $postData = $this->request->getGetPost();
+        $user = $this->userModel->where('email', $postData['email'])->first();
+        
         if ($user) {
-            if ($password===$user['password']) {
+            if(password_verify($postData['password'], $user['password'])){
                 $token = bin2hex(random_bytes(32));
                 $this->userModel->update($user['id'], ['token' => $token]);
                 
