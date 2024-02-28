@@ -1,8 +1,10 @@
 <?php
 namespace App\Models;
 
-use CodeIgniter\Model;
 
+use CodeIgniter\Model;
+use App\Models\UserModel;
+use App\Models\CategoryModel;
 class PartnerCategoryModel extends Model
 {
     protected $table = 'partnerCategory';
@@ -16,5 +18,11 @@ class PartnerCategoryModel extends Model
         ->where('partner_id', $user_id)
         ->findAll();
     }
-    
+    public function getMappingsWithUserAndCategory()
+    {
+        return $this->select('partnerCategory.partner_id,partnerCategory.category_id, users.username, categories.name')
+                    ->join('users', 'users.id = partnerCategory.partner_id')
+                    ->join('categories', 'categories.id = partnerCategory.category_id')
+                    ->findAll();
+    }
 }

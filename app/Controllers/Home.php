@@ -128,7 +128,7 @@ class Home extends BaseController
         $totalMappings = 0;
         if($this->sessionData && $this->sessionData['role']=='admin')
         {
-            $mappings=$PartnerCategoryModel->findAll();
+            $mappings=$PartnerCategoryModel->getMappingsWithUserAndCategory();
             $totalMappings=$PartnerCategoryModel->countAllResults();
         }
         $data = [

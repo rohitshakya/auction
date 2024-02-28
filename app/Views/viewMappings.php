@@ -18,11 +18,11 @@
                 <tr>
                     <!-- Product name -->
                     <td>
-                        <?= $mapping['partner_id'] ?>
+                        <?= $mapping['username'] ?>
                     </td>
                     <!-- Product description -->
                     <td>
-                        <?= $mapping['category_id'] ?>
+                        <?= $mapping['name'] ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
