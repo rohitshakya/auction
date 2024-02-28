@@ -51,6 +51,16 @@ class BidController extends BaseController
         //$this->sendEmailNotification();
         return $this->respond(["status"=>true,"msg"=>"Success"]);
     }
+    public function getBidPdf()
+    {
+        $getData = $this->request->getGet();
+        $bidId=$getData['bidId'];
+        $bidModel = new BidModel();
+        $bid = $bidModel->findBidById($bidId);
+        return $this->respond($bid);
+    }
+
+    
     
     
 }

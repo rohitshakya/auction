@@ -8,7 +8,42 @@
         </div>
     </div>
 </header>
+<style>
+
+.modal-body {
+    padding: 0;
+}
+
+#pdfIframe {
+    width: 100%;
+    height: calc(100vh - 120px);
+    border: none;
+}
+
+.modal-dialog {
+    max-width: 90%; 
+}
+
+.modal-content {
+    height: 90vh;
+}
+</style>
 <!-- Section-->
+<div class="modal" id="pdfModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">PDF Viewer</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <iframe id="pdfIframe" src="" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
 
 <?php 
 if(!empty($product)) {?>
@@ -142,7 +177,6 @@ if(!empty($product)) {?>
 
     function getBids() {
         let productId = "<?=$product['id']?>";
-        console.log(productId);
         $.ajax({
             url: "/getBidsByProduct",
             type: "GET",
@@ -151,14 +185,13 @@ if(!empty($product)) {?>
                 "id": productId
             },
             success: function(response) {
-                console.log(response);
                 $('#bidTable tbody').empty();
                 $.each(response, function(index, item) {
                     $('#bidTable tbody').append(
                         '<tr>' +
                         '<td>' + item.amount + '</td>' +
                         '<td>' + item.created_at + '</td>' +
-                        '<td>' + " <i class='bi bi-eye' aria-hidden='true'></i>" + '</td>' +
+                        '<td>' + " <i class='bi bi-eye openPdf' aria-hidden='true'></i>" + '</td>' +
                         '</tr>'
                     );
                 });
@@ -177,4 +210,36 @@ if(!empty($product)) {?>
 <script>
     var pdfData = "<?php echo 'data:application/pdf;base64,'.($product['media']??'');?>";
     $("#pdfViewer").attr("src", pdfData);
+
+    $(document).ready(function(){
+        $("body").on("click", ".openPdf", function(){
+        let bidId = 1;
+        $.ajax({
+            url: "/getBidPdf",
+            type: "GET",
+            dataType: "json",
+            data: {
+                "bidId": bidId
+            },
+            success: function(response) {
+            var pdfUrl = 'data:application/pdf;base64,'+response.media;
+            $("#pdfIframe").attr("src", pdfUrl);
+            $("#pdfModal").modal("show");
+            },
+            error: function(xhr, status, error) {
+                FlashMessage("Bid not found");
+                console.error(status);
+                console.error(error);
+            }
+        });
+            
+    });
+    $(".close").click(function(){
+        $("#pdfModal").modal("hide");
+    });
+    
+});
+
+
 </script>
+

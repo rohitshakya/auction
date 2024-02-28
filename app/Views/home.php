@@ -1,5 +1,4 @@
 <?php
-//print_r($products);die;
 ?>
 <!-- Header-->
 <header class="bg-dark py-5">
