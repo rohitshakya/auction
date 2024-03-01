@@ -9,6 +9,7 @@ use App\Models\EmailTemplateModel;
 use App\Models\NotificationModel;
 use App\Models\UserModel;
 use CodeIgniter\API\ResponseTrait;
+use App\Services\DataManipulateService;
 class ProductController extends BaseController
 {
     use ResponseTrait;
@@ -86,27 +87,31 @@ class ProductController extends BaseController
             'status' => $postData['status'] ?? 'active'
         ];
         $this->ProductModel->insert($data);
-        $this->createNotification($postData['category_id']);
+        $this->createNotification($data);
         // (new NotificationController)->sendEmailNotification();
         return $this->respond(["Success"]);
     }
-    public function createNotification($category_id)
+    public function createNotification($data)
     {
-        $res = (new PartnerCategoryModel())->getUserByCategoryId($category_id);
-        $temp = (new EmailTemplateModel())->findTemplateById(1);
+        $res   = (new PartnerCategoryModel())->getUserByCategoryId($data['category_id']);
+        $temp  = (new EmailTemplateModel())->findTemplateById(1);
         foreach($res as $item)
         {
-            $data = [
+
+            $notificationData = [
                 'recipient_email' => $item->email,
                 'subject' => $temp['subject'],
                 'message' => $temp['html_content'],
                 'status' => 'pending',
                 'retry_count' => 0,
             ];
-            (new NotificationModel())->addNotification($data);
+
+            $notificationData['message'] = (new DataManipulateService)->makeEmailTemplate($temp['html_content'],$data,$item->email,$item->username);
+            (new NotificationModel())->addNotification($notificationData);
         }
         
     }
+
     public function addCategory()
     {
         $postData = $this->request->getPost();

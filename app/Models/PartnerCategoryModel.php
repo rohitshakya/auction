@@ -28,7 +28,7 @@ class PartnerCategoryModel extends Model
     public function getUserByCategoryId($category_id)
     {
         return $this->db->table('partnerCategory')
-                    ->select('users.email')
+                    ->select('users.email,users.username')
                     ->join('users', 'users.id = partnerCategory.partner_id')
                     ->where('partnerCategory.category_id', $category_id)
                     ->get()
