@@ -35,4 +35,4 @@ $routes->post('/mapPartnerCategory', 'Home::mapPartnerCategory');
 $routes->post('/auth', 'AuthController::login');
 $routes->get('/logout', 'AuthController::logout');
 
-$routes->get('/testEmail', 'NotificationController::sendEmailNotification');
+$routes->get('/cronEmail', 'NotificationController::sendEmailNotification');

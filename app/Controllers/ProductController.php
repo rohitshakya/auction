@@ -5,6 +5,8 @@ namespace App\Controllers;
 use App\Models\ProductModel;
 use App\Models\PartnerCategoryModel;
 use App\Models\CategoryModel;
+use App\Models\EmailTemplateModel;
+use App\Models\NotificationModel;
 use App\Models\UserModel;
 use CodeIgniter\API\ResponseTrait;
 class ProductController extends BaseController
@@ -66,6 +68,7 @@ class ProductController extends BaseController
     }
     public function createProduct()
     {
+        
         $postData = $this->request->getPost();
         $pdfFile = $this->request->getFile('pdf_file');
         $fileData = file_get_contents($pdfFile->getTempName());
@@ -74,8 +77,8 @@ class ProductController extends BaseController
         $data = [
             'name' => $postData['name'] ?? '',
             'description' => $postData['description'] ?? null,
-            'category_id' => $postData['categoryId'] ?? null,
-            'user_id' => $postData['user_id'] ?? 1,
+            'category_id' => $postData['category_id'],
+            'user_id' => session('user_id'),
             'starting_price' => $postData['starting_price'] ?? 0,
             'start_datetime' => $postData['start_datetime'] ?? '',
             'end_datetime' => $postData['end_datetime'] ?? '',
@@ -83,10 +86,26 @@ class ProductController extends BaseController
             'status' => $postData['status'] ?? 'active'
         ];
         $this->ProductModel->insert($data);
-        $emailController = new NotificationController();
-        
-        $emailController->sendEmailNotification();
+        $this->createNotification($postData['category_id']);
+        // (new NotificationController)->sendEmailNotification();
         return $this->respond(["Success"]);
+    }
+    public function createNotification($category_id)
+    {
+        $res = (new PartnerCategoryModel())->getUserByCategoryId($category_id);
+        $temp = (new EmailTemplateModel())->findTemplateById(1);
+        foreach($res as $item)
+        {
+            $data = [
+                'recipient_email' => $item->email,
+                'subject' => $temp['subject'],
+                'message' => $temp['html_content'],
+                'status' => 'pending',
+                'retry_count' => 0,
+            ];
+            (new NotificationModel())->addNotification($data);
+        }
+        
     }
     public function addCategory()
     {

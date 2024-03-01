@@ -46,7 +46,7 @@
 </div>
 
 <?php 
-if(!empty($product)) {?>
+if(!empty($product)) { ?>
 
 <section class="py-5">
     <div class="container px-4 px-lg-5 my-5">
@@ -57,13 +57,16 @@ if(!empty($product)) {?>
             </div>
             <div class="col-md-6">
                 <h1 class="display-5 fw-bolder">
-                    <?= $product['title'] ?? ''?>
+                    <?= $product->name ?? ''?>
                 </h1>
+                <h5 >
+                    <?= $product->category_name ?? ''?>
+                </h5>
                 <div class="fs-5 mb-5">
-                    <span><?= $product['budget'] ?? ''?></span>
+                    <span><?= $product->budget ?? ''?></span>
                 </div>
                 <p class="lead">Product Description:
-                    <?= $product['description'] ?? ''?>
+                    <?= $product->description ?? ''?>
                 </p>
                 <div id="bidTimer" class="text-center mb-4"></div>
                 <?php if(session('role')=='partner'){?>
@@ -116,7 +119,7 @@ if(!empty($product)) {?>
 
 </html>
 <script>
-    var targetBidTime = new Date('+<?= $product['end_datetime ']??"" ?>').getTime() / 1000;
+    var targetBidTime = new Date('+<?= $product->end_datetime ??"" ?>').getTime() / 1000;
 
     function updateBidTimer() {
         const timerElement = document.getElementById('bidTimer');
@@ -142,7 +145,7 @@ if(!empty($product)) {?>
 
         $("#placeBid").click(function() {
             let bidAmount = $("#bidAmount").val();
-            let productId = "<?=$product['id']??0;?>";
+            let productId = "<?=$product->id??0;?>";
             let partnerId = "<?=session('user_id');?>";
             let pdfFile = $("#pdf_file")[0].files[0]; // Get the selected PDF file
 
@@ -176,7 +179,7 @@ if(!empty($product)) {?>
     });
 
     function getBids() {
-        let productId = "<?=$product['id']?>";
+        let productId = "<?=$product->id?>";
         $.ajax({
             url: "/getBidsByProduct",
             type: "GET",
@@ -208,7 +211,7 @@ if(!empty($product)) {?>
 </script>
 
 <script>
-    var pdfData = "<?php echo 'data:application/pdf;base64,'.($product['media']??'');?>";
+    var pdfData = "<?php echo 'data:application/pdf;base64,'.($product->media??'');?>";
     $("#pdfViewer").attr("src", pdfData);
 
     $(document).ready(function(){

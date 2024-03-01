@@ -12,6 +12,7 @@
                     <th>Description</th>
                     <th>Price</th>
                     <th>Action</th>
+                    <th>Category</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,6 +30,10 @@
                     <td>
                         <?= $product['starting_price'] ?>
                     </td>
+                    <td>
+                        <?= $product['category_name'] ?>
+                    </td>
+                    
                     <!-- View details button -->
                     <td><a href="#<?= $product['id'] ?>" class="btn btn-primary">View Details</a></td>
                 </tr>

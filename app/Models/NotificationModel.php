@@ -1,4 +1,6 @@
-<?php namespace App\Models;
+<?php
+
+namespace App\Models;
 
 use CodeIgniter\Model;
 
@@ -8,24 +10,29 @@ class NotificationModel extends Model
     protected $primaryKey = 'id';
 
     protected $useAutoIncrement = true;
-    protected $insertID = 0;
     protected $returnType = 'array';
 
     protected $allowedFields = [
-        'user_id',
-        'type',
+        'recipient_email',
+        'subject',
         'message',
-        'is_read',
-        'related_id',
+        'status',
         'created_at',
+        'retry_count',
+        'error_message'
     ];
 
-    protected $useTimestamps = true;
+    protected $useTimestamps = false;
     protected $createdField = 'created_at';
-    protected $updatedField = '';
-    protected $deletedField = '';
+    protected $updatedField = null; // Since there's no updated_at field in the schema
+    protected $deletedField = null; // Since there's no deleted_at field in the schema
 
-    protected $validationRules = [];
+    protected $validationRules = []; // You can define validation rules if needed
     protected $validationMessages = [];
     protected $skipValidation = false;
+
+    public function addNotification($data)
+    {
+        return $this->insert($data);
+    }
 }

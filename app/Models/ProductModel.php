@@ -19,12 +19,23 @@ class ProductModel extends Model
     public function getAllProducts($page = 1)
     {
        
-        $offset = ($page - 1) * $this->perPage;
-        return $this->paginate($this->perPage, '', $offset);
+        $perPage = $this->perPage;
+        $offset = ($page - 1) * $perPage;
+
+        $query = $this->select('products.*, categories.name as category_name')
+                    ->join('categories', 'categories.id = products.category_id', 'left')
+                    ->orderBy('products.id', 'asc')
+                    ->paginate($perPage, '', $offset);
+
+        return $query;
     }
     public function getProductById($productId)
     {
-        return $this->find($productId);
+        return $this->select('products.*, categories.name as category_name')
+        ->join('categories', 'categories.id = products.category_id', 'left')
+        ->where('products.id', $productId)
+        ->get()
+        ->getRow();
     }
     public function getAllProductsByCategories($categories, $page = 1)
     {

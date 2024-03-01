@@ -75,22 +75,20 @@ CREATE TABLE `emailTemplates` (
 --
 -- Table structure for table `notifications`
 --
-
 DROP TABLE IF EXISTS `notifications`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `notifications` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `type` enum('new_bid','auction_won','auction_lost','bid_accepted','bid_rejected','new_auction','custom') NOT NULL,
+  `recipient_email` varchar(255) NOT NULL,
+  `subject` varchar(255) NOT NULL,
   `message` text NOT NULL,
-  `is_read` tinyint(1) NOT NULL DEFAULT 0,
-  `related_id` int(11) DEFAULT NULL,
+  `status` enum('pending','sent','failed') DEFAULT 'pending',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  KEY `user_index` (`user_id`),
-  CONSTRAINT `notifications_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `retry_count` int(11) DEFAULT 0,
+  `error_message` text DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

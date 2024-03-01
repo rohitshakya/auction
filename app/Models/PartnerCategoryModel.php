@@ -25,4 +25,13 @@ class PartnerCategoryModel extends Model
                     ->join('categories', 'categories.id = partnerCategory.category_id')
                     ->findAll();
     }
+    public function getUserByCategoryId($category_id)
+    {
+        return $this->db->table('partnerCategory')
+                    ->select('users.email')
+                    ->join('users', 'users.id = partnerCategory.partner_id')
+                    ->where('partnerCategory.category_id', $category_id)
+                    ->get()
+                    ->getResult();
+    }
 }

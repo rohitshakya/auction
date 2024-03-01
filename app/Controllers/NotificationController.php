@@ -2,9 +2,9 @@
 
 namespace App\Controllers;
 
-use App\Models\EmailTemplateModel;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+use App\Models\NotificationModel;
 
 
 class NotificationController extends BaseController
@@ -16,38 +16,47 @@ class NotificationController extends BaseController
     public function sendEmailNotification()
     {
         $config = config('Email');
-        $emailTemplateModel = new EmailTemplateModel();
-        $template = $emailTemplateModel->findTemplateById(1);
-        $notifications[0]=array("recipient_email"=>"rohit.rkshakya@gmail.com","recipient_name"=>"Rohit Shakya","subject"=>"testsubject","message"=>$template['html_content']);
-        if (!$notifications) {
-            return;
-        }
-
-        $mailer = new PHPMailer(true);
+        $notificationModel = new NotificationModel();
 
         try {
+            
+            $notifications = $notificationModel->where('status', 'pending')->limit(100)->findAll();
+            if (!$notifications) {
+                echo "No New Notification!";
+                return;
+            }
+
+            $mailer = new PHPMailer(true);
+
             // Server settings
             $mailer->isSMTP();
-            $mailer->Host = $config->SMTPHost; // Use values from Email config
+            $mailer->Host = $config->SMTPHost;
             $mailer->SMTPAuth = true;
-            $mailer->Username = $config->SMTPUser; // Use values from Email config
-            $mailer->Password = $config->SMTPPass; // Use values from Email config
-            $mailer->SMTPSecure = $config->SMTPCrypto; // Use values from Email config
-            $mailer->Port = $config->SMTPPort; // Use values from Email config
+            $mailer->Username = $config->SMTPUser;
+            $mailer->Password = $config->SMTPPass;
+            $mailer->SMTPSecure = $config->SMTPCrypto;
+            $mailer->Port = $config->SMTPPort;
 
-            // Sender
-            $mailer->setFrom("auction@roundcircle.tech", 'The Auction'); // Use values from Email config
+            $mailer->setFrom("auction@roundcircle.tech", 'The Auction');
 
             foreach ($notifications as $notification) {
-                $mailer->addAddress($notification['recipient_email'], $notification['recipient_name']);
+                $mailer->addAddress($notification['recipient_email']);
                 $mailer->isHTML(true);
-                $mailer->Subject = $template['subject'];
+                
+                $mailer->Subject = $notification['subject'];
                 $mailer->Body = $notification['message'];
                 $mailer->send();
-                //$notificationModel->update($notification['id'], ['is_sent' => true]);
+
+                // Update notification status
+                $notificationModel->update($notification['id'], [
+                    'status' => 'sent',
+                ]);
             }
+            echo "Mail sent successfully!!";exit;
         } catch (Exception $e) {
-            echo 'Email notification could not be sent. Error: ' . $mailer->ErrorInfo;
+            // Log error or handle as needed
+            echo 'Email notification could not be sent. Error: ' . $e->getMessage();
         }
     }
+
 }
